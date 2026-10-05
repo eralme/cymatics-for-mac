@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "platform": "macos",
+  "architectures": [
+    "aarch64",
+    "x86_64"
+  ],
+  "minimumSystemVersion": "12.0",
+  "filename": "Cymatics-0.1.0-macos-universal.dmg",
+  "downloadUrl": "downloads/Cymatics-0.1.0-macos-universal.dmg",
+  "sizeBytes": 4595989,
+  "sha256": "260d59525b4f674507a175568708beb49cd3fde72efae72143efcf75ec480499",
+  "notarized": false
+}

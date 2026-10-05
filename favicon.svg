@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42">
+  <defs>
+    <linearGradient id="copper" gradientUnits="userSpaceOnUse" x1="6" y1="4" x2="36" y2="38">
+      <stop stop-color="#e2b970"/>
+      <stop offset=".5" stop-color="#d49465"/>
+      <stop offset="1" stop-color="#b77d55"/>
+    </linearGradient>
+  </defs>
+  <rect width="42" height="42" rx="9" fill="#3d281e"/>
+  <g fill="none" stroke="url(#copper)" stroke-width="1.7">
+    <circle cx="21" cy="21" r="18"/>
+    <circle cx="21" cy="15" r="9"/>
+    <circle cx="21" cy="27" r="9"/>
+    <circle cx="16" cy="18" r="9"/>
+    <circle cx="26" cy="18" r="9"/>
+    <circle cx="16" cy="24" r="9"/>
+    <circle cx="26" cy="24" r="9"/>
+  </g>
+</svg>
