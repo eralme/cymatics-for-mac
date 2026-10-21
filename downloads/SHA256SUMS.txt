@@ -1,1 +1,1 @@
-260d59525b4f674507a175568708beb49cd3fde72efae72143efcf75ec480499  Cymatics-0.1.0-macos-universal.dmg
+5bc811c9224af8a023faef33751f21f0a4d67703f8fc359866bee56ce531ef2a  Xymatics-0.2.0-macos-universal.dmg

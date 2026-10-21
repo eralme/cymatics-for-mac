@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<meta name="description" content="A guide to Xymatics Lab controls, sound terminology, audio calculations, and visualization models.">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<title>Xymatics Lab guide · Terms &amp; calculations</title>
+<link rel="icon" type="image/svg+xml" sizes="any" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%20role%3D%22img%22%20aria-labelledby%3D%22title%20desc%22%3E%0A%3Ctitle%20id%3D%22title%22%3EXymatics%3C%2Ftitle%3E%0A%3Cdesc%20id%3D%22desc%22%3ENodal%20X%20favicon%2C%20simplified%20to%20stay%20legible%20at%2016%20px.%3C%2Fdesc%3E%0A%3Cstyle%3E%40media%20(max-width%3A%2024px)%20%7B%20.fine%20%7B%20display%3A%20none%20%7D%20.bold%20%7B%20stroke-width%3A%2034px%20%7D%20%7D%3C%2Fstyle%3E%3Crect%20width%3D%22256%22%20height%3D%22256%22%20rx%3D%2248%22%20fill%3D%22%231a1a1d%22%2F%3E%0A%3Cg%20fill%3D%22none%22%20stroke%3D%22%23c0a075%22%20stroke-linecap%3D%22round%22%3E%3Cpath%20class%3D%22fine%22%20d%3D%22M96%2032C96.01%2032.41%2096.02%2033.65%2096.06%2034.47C96.1%2035.29%2096.15%2036.11%2096.23%2036.93C96.31%2037.75%2096.41%2038.57%2096.53%2039.39C96.65%2040.2%2096.79%2041.01%2096.96%2041.82C97.13%2042.63%2097.32%2043.43%2097.53%2044.22C97.75%2045.02%2097.99%2045.81%2098.27%2046.58C98.54%2047.36%2098.85%2048.13%2099.18%2048.88C99.52%2049.63%2099.89%2050.37%20100.29%2051.08C100.7%2051.8%20101.14%2052.5%20101.61%2053.17C102.09%2053.84%20102.6%2054.49%20103.15%2055.1C103.7%2055.71%20104.29%2056.3%20104.9%2056.85C105.51%2057.4%20106.16%2057.91%20106.83%2058.39C107.5%2058.86%20108.2%2059.3%20108.92%2059.71C109.63%2060.11%20110.37%2060.48%20111.12%2060.82C111.87%2061.15%20112.64%2061.46%20113.42%2061.73C114.19%2062.01%20114.98%2062.25%20115.78%2062.47C116.57%2062.68%20117.37%2062.87%20118.18%2063.04C118.99%2063.21%20119.8%2063.35%20120.61%2063.47C121.43%2063.59%20122.25%2063.69%20123.07%2063.77C123.89%2063.85%20124.71%2063.9%20125.53%2063.94C126.35%2063.98%20127.18%2064%20128%2064C128.82%2064%20129.65%2063.98%20130.47%2063.94C131.29%2063.9%20132.11%2063.85%20132.93%2063.77C133.75%2063.69%20134.57%2063.59%20135.39%2063.47C136.2%2063.35%20137.01%2063.21%20137.82%2063.04C138.63%2062.87%20139.43%2062.68%20140.22%2062.47C141.02%2062.25%20141.81%2062.01%20142.58%2061.73C143.36%2061.46%20144.13%2061.15%20144.88%2060.82C145.63%2060.48%20146.37%2060.11%20147.08%2059.71C147.8%2059.3%20148.5%2058.86%20149.17%2058.39C149.84%2057.91%20150.49%2057.4%20151.1%2056.85C151.71%2056.3%20152.3%2055.71%20152.85%2055.1C153.4%2054.49%20153.91%2053.84%20154.39%2053.17C154.86%2052.5%20155.3%2051.8%20155.71%2051.08C156.11%2050.37%20156.48%2049.63%20156.82%2048.88C157.15%2048.13%20157.46%2047.36%20157.73%2046.58C158.01%2045.81%20158.25%2045.02%20158.47%2044.22C158.68%2043.43%20158.87%2042.63%20159.04%2041.82C159.21%2041.01%20159.35%2040.2%20159.47%2039.39C159.59%2038.57%20159.69%2037.75%20159.77%2036.93C159.85%2036.11%20159.9%2035.29%20159.94%2034.47C159.98%2033.65%20159.99%2032.41%20160%2032M224%2096C223.59%2096.01%20222.35%2096.02%20221.53%2096.06C220.71%2096.1%20219.89%2096.15%20219.07%2096.23C218.25%2096.31%20217.43%2096.41%20216.61%2096.53C215.8%2096.65%20214.99%2096.79%20214.18%2096.96C213.37%2097.13%20212.57%2097.32%20211.78%2097.53C210.98%2097.75%20210.19%2097.99%20209.42%2098.27C208.64%2098.54%20207.87%2098.85%20207.12%2099.18C206.37%2099.52%20205.63%2099.89%20204.92%20100.29C204.2%20100.7%20203.5%20101.14%20202.83%20101.61C202.16%20102.09%20201.51%20102.6%20200.9%20103.15C200.29%20103.7%20199.7%20104.29%20199.15%20104.9C198.6%20105.51%20198.09%20106.16%20197.61%20106.83C197.14%20107.5%20196.7%20108.2%20196.29%20108.92C195.89%20109.63%20195.52%20110.37%20195.18%20111.12C194.85%20111.87%20194.54%20112.64%20194.27%20113.42C193.99%20114.19%20193.75%20114.98%20193.53%20115.78C193.32%20116.57%20193.13%20117.37%20192.96%20118.18C192.79%20118.99%20192.65%20119.8%20192.53%20120.61C192.41%20121.43%20192.31%20122.25%20192.23%20123.07C192.15%20123.89%20192.1%20124.71%20192.06%20125.53C192.02%20126.35%20192%20127.18%20192%20128C192%20128.82%20192.02%20129.65%20192.06%20130.47C192.1%20131.29%20192.15%20132.11%20192.23%20132.93C192.31%20133.75%20192.41%20134.57%20192.53%20135.39C192.65%20136.2%20192.79%20137.01%20192.96%20137.82C193.13%20138.63%20193.32%20139.43%20193.53%20140.22C193.75%20141.02%20193.99%20141.81%20194.27%20142.58C194.54%20143.36%20194.85%20144.13%20195.18%20144.88C195.52%20145.63%20195.89%20146.37%20196.29%20147.08C196.7%20147.8%20197.14%20148.5%20197.61%20149.17C198.09%20149.84%20198.6%20150.49%20199.15%20151.1C199.7%20151.71%20200.29%20152.3%20200.9%20152.85C201.51%20153.4%20202.16%20153.91%20202.83%20154.39C203.5%20154.86%20204.2%20155.3%20204.92%20155.71C205.63%20156.11%20206.37%20156.48%20207.12%20156.82C207.87%20157.15%20208.64%20157.46%20209.42%20157.73C210.19%20158.01%20210.98%20158.25%20211.78%20158.47C212.57%20158.68%20213.37%20158.87%20214.18%20159.04C214.99%20159.21%20215.8%20159.35%20216.61%20159.47C217.43%20159.59%20218.25%20159.69%20219.07%20159.77C219.89%20159.85%20220.71%20159.9%20221.53%20159.94C222.35%20159.98%20223.59%20159.99%20224%20160M160%20224C159.99%20223.59%20159.98%20222.35%20159.94%20221.53C159.9%20220.71%20159.85%20219.89%20159.77%20219.07C159.69%20218.25%20159.59%20217.43%20159.47%20216.61C159.35%20215.8%20159.21%20214.99%20159.04%20214.18C158.87%20213.37%20158.68%20212.57%20158.47%20211.78C158.25%20210.98%20158.01%20210.19%20157.73%20209.42C157.46%20208.64%20157.15%20207.87%20156.82%20207.12C156.48%20206.37%20156.11%20205.63%20155.71%20204.92C155.3%20204.2%20154.86%20203.5%20154.39%20202.83C153.91%20202.16%20153.4%20201.51%20152.85%20200.9C152.3%20200.29%20151.71%20199.7%20151.1%20199.15C150.49%20198.6%20149.84%20198.09%20149.17%20197.61C148.5%20197.14%20147.8%20196.7%20147.08%20196.29C146.37%20195.89%20145.63%20195.52%20144.88%20195.18C144.13%20194.85%20143.36%20194.54%20142.58%20194.27C141.81%20193.99%20141.02%20193.75%20140.22%20193.53C139.43%20193.32%20138.63%20193.13%20137.82%20192.96C137.01%20192.79%20136.2%20192.65%20135.39%20192.53C134.57%20192.41%20133.75%20192.31%20132.93%20192.23C132.11%20192.15%20131.29%20192.1%20130.47%20192.06C129.65%20192.02%20128.82%20192%20128%20192C127.18%20192%20126.35%20192.02%20125.53%20192.06C124.71%20192.1%20123.89%20192.15%20123.07%20192.23C122.25%20192.31%20121.43%20192.41%20120.61%20192.53C119.8%20192.65%20118.99%20192.79%20118.18%20192.96C117.37%20193.13%20116.57%20193.32%20115.78%20193.53C114.98%20193.75%20114.19%20193.99%20113.42%20194.27C112.64%20194.54%20111.87%20194.85%20111.12%20195.18C110.37%20195.52%20109.63%20195.89%20108.92%20196.29C108.2%20196.7%20107.5%20197.14%20106.83%20197.61C106.16%20198.09%20105.51%20198.6%20104.9%20199.15C104.29%20199.7%20103.7%20200.29%20103.15%20200.9C102.6%20201.51%20102.09%20202.16%20101.61%20202.83C101.14%20203.5%20100.7%20204.2%20100.29%20204.92C99.89%20205.63%2099.52%20206.37%2099.18%20207.12C98.85%20207.87%2098.54%20208.64%2098.27%20209.42C97.99%20210.19%2097.75%20210.98%2097.53%20211.78C97.32%20212.57%2097.13%20213.37%2096.96%20214.18C96.79%20214.99%2096.65%20215.8%2096.53%20216.61C96.41%20217.43%2096.31%20218.25%2096.23%20219.07C96.15%20219.89%2096.1%20220.71%2096.06%20221.53C96.02%20222.35%2096.01%20223.59%2096%20224M32%20160C32.41%20159.99%2033.65%20159.98%2034.47%20159.94C35.29%20159.9%2036.11%20159.85%2036.93%20159.77C37.75%20159.69%2038.57%20159.59%2039.39%20159.47C40.2%20159.35%2041.01%20159.21%2041.82%20159.04C42.63%20158.87%2043.43%20158.68%2044.22%20158.47C45.02%20158.25%2045.81%20158.01%2046.58%20157.73C47.36%20157.46%2048.13%20157.15%2048.88%20156.82C49.63%20156.48%2050.37%20156.11%2051.08%20155.71C51.8%20155.3%2052.5%20154.86%2053.17%20154.39C53.84%20153.91%2054.49%20153.4%2055.1%20152.85C55.71%20152.3%2056.3%20151.71%2056.85%20151.1C57.4%20150.49%2057.91%20149.84%2058.39%20149.17C58.86%20148.5%2059.3%20147.8%2059.71%20147.08C60.11%20146.37%2060.48%20145.63%2060.82%20144.88C61.15%20144.13%2061.46%20143.36%2061.73%20142.58C62.01%20141.81%2062.25%20141.02%2062.47%20140.22C62.68%20139.43%2062.87%20138.63%2063.04%20137.82C63.21%20137.01%2063.35%20136.2%2063.47%20135.39C63.59%20134.57%2063.69%20133.75%2063.77%20132.93C63.85%20132.11%2063.9%20131.29%2063.94%20130.47C63.98%20129.65%2064%20128.82%2064%20128C64%20127.18%2063.98%20126.35%2063.94%20125.53C63.9%20124.71%2063.85%20123.89%2063.77%20123.07C63.69%20122.25%2063.59%20121.43%2063.47%20120.61C63.35%20119.8%2063.21%20118.99%2063.04%20118.18C62.87%20117.37%2062.68%20116.57%2062.47%20115.78C62.25%20114.98%2062.01%20114.19%2061.73%20113.42C61.46%20112.64%2061.15%20111.87%2060.82%20111.12C60.48%20110.37%2060.11%20109.63%2059.71%20108.92C59.3%20108.2%2058.86%20107.5%2058.39%20106.83C57.91%20106.16%2057.4%20105.51%2056.85%20104.9C56.3%20104.29%2055.71%20103.7%2055.1%20103.15C54.49%20102.6%2053.84%20102.09%2053.17%20101.61C52.5%20101.14%2051.8%20100.7%2051.08%20100.29C50.37%2099.89%2049.63%2099.52%2048.88%2099.18C48.13%2098.85%2047.36%2098.54%2046.58%2098.27C45.81%2097.99%2045.02%2097.75%2044.22%2097.53C43.43%2097.32%2042.63%2097.13%2041.82%2096.96C41.01%2096.79%2040.2%2096.65%2039.39%2096.53C38.57%2096.41%2037.75%2096.31%2036.93%2096.23C36.11%2096.15%2035.29%2096.1%2034.47%2096.06C33.65%2096.02%2032.41%2096.01%2032%2096%22%20stroke-width%3D%2220%22%2F%3E%3Cpath%20class%3D%22bold%22%20d%3D%22M32%2032L224%20224M32%20224L224%2032%22%20stroke-width%3D%2228%22%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E">
+<style>
+:root {
+  color-scheme:dark; --bg:#1a1a1d; --surface:#1d1d21; --raised:#242428; --soft:#27272b;
+  --ink:#e8e6e3; --muted:#aaa8a3; --line:#444449; --control-line:#747478;
+  --gold:#c6b38c; --copper:#c9956c; --earth:var(--ink); --plate:#121215;
+  --brand-bronze:#c0a075; --brand-paper:#e3dccf; --brand-ink:var(--brand-paper);
+  --display:"Marcellus",Georgia,serif; --body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+* { box-sizing:border-box; scrollbar-width:thin; scrollbar-color:color-mix(in srgb,var(--muted) 22%,transparent) transparent; }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:color-mix(in srgb,var(--muted) 22%,transparent); border-radius:999px; }
+::-webkit-scrollbar-thumb:hover { background:color-mix(in srgb,var(--muted) 38%,transparent); }
+::-webkit-scrollbar-corner { background:transparent; }
+@media (forced-colors: active) {
+  * { scrollbar-width:auto; scrollbar-color:auto; }
+  ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-corner { all:revert; }
+}
+html { scroll-behavior:smooth; scroll-padding-top:24px; }
+body { margin:0; color:var(--ink); background:var(--bg); font:15px/1.7 var(--body); }
+a { color:var(--copper); text-underline-offset:4px; }
+a:hover { text-decoration-thickness:2px; }
+button,input { font:inherit; }
+button,a,input,summary { -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:2px solid var(--copper); outline-offset:4px; }
+[hidden] { display:none !important; }
+.skip { position:absolute; left:16px; top:-100px; z-index:5; background:var(--surface); padding:10px 16px; }
+.skip:focus { top:12px; }
+.shell { width:min(1240px,calc(100% - 64px)); margin:auto; }
+.masthead { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:26px 0; border-bottom:1px solid var(--line); }
+.brand { display:flex; align-items:center; gap:12px; color:var(--brand-ink); text-decoration:none; }
+.brand svg { width:42px; height:42px; flex:none; color:var(--brand-bronze); }
+.brand-name { display:block; font:600 1.4rem/1.2 var(--body); letter-spacing:-.03em; }
+.brand-note { display:block; font-size:.73rem; color:var(--muted); margin-top:3px; }
+.back { font-size:.82rem; white-space:nowrap; }
+.hero { padding:60px 0 46px; max-width:850px; }
+.eyebrow { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:600; color:var(--copper); }
+h1,h2,h3,p { margin-top:0; }
+h1 { font:400 clamp(2.6rem,5vw,4.6rem)/1.08 var(--display); letter-spacing:-.035em; margin:16px 0 22px; color:var(--earth); }
+.hero p { font-size:1.06rem; color:var(--muted); max-width:650px; margin-bottom:18px; }
+.layout { display:grid; grid-template-columns:208px minmax(0,1fr); gap:50px; align-items:start; }
+.toc { position:sticky; top:24px; font-size:.83rem; padding-bottom:20px; }
+.toc p { margin-bottom:12px; }
+.toc a { display:flex; gap:12px; align-items:baseline; color:var(--muted); text-decoration:none; padding:10px 0; border-bottom:1px solid var(--line); }
+.toc a:hover { color:var(--copper); }
+.toc b { font:400 .65rem var(--mono); color:var(--copper); }
+main { min-width:0; }
+section { margin-bottom:58px; scroll-margin-top:24px; }
+.section-head { display:flex; align-items:baseline; gap:14px; margin-bottom:14px; }
+.section-head > span { font:.72rem var(--mono); color:var(--copper); }
+h2 { font:400 2rem/1.25 var(--display); letter-spacing:-.025em; margin-bottom:0; color:var(--earth); }
+h3 { font-size:1.03rem; line-height:1.35; margin-bottom:10px; }
+.intro { color:var(--muted); margin-bottom:22px; max-width:72ch; }
+.steps { display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:0; list-style:none; counter-reset:step; }
+.steps li { counter-increment:step; border-top:1px solid var(--line); padding-top:16px; }
+.steps li::before { content:"0" counter(step); display:block; font:.75rem var(--mono); color:var(--copper); margin-bottom:8px; }
+.steps p { margin-bottom:0; color:var(--muted); font-size:.88rem; }
+.callout { background:var(--soft); border-left:3px solid var(--gold); padding:16px 20px; border-radius:0 9px 9px 0; font-size:.86rem; }
+.callout p:last-child { margin-bottom:0; }
+.explorer { background:var(--surface); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.explorer-top { padding:24px; }
+.preset-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+.preset { border:1px solid var(--control-line); border-radius:7px; padding:7px 11px; color:var(--ink); background:var(--raised); cursor:pointer; font-size:.78rem; }
+.preset:hover { background:var(--soft); }
+.preset[aria-pressed="true"] { color:var(--ink); background:var(--soft); border-color:var(--copper); box-shadow:inset 0 -2px var(--copper); }
+.fields { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.fields label { display:grid; gap:6px; font-size:.78rem; color:var(--muted); }
+.input-wrap { display:flex; align-items:center; gap:10px; }
+.input-wrap input { width:100%; min-width:0; padding:9px 12px; border:1px solid var(--control-line); border-radius:7px; color:var(--ink); background:var(--raised); font-family:var(--mono); font-size:.9rem; }
+.input-wrap span { font:.75rem var(--mono); }
+.error { color:var(--copper); font-size:.83rem; margin:10px 0 0; }
+.wave-box { padding:10px 24px 18px; background:var(--plate); color:var(--muted); }
+.wave-legend { display:flex; gap:16px; flex-wrap:wrap; font:400 .74rem/1.5 var(--mono); padding-top:6px; }
+.wave-legend span:first-child { color:var(--copper); }
+.wave-legend span:last-child { color:var(--gold); }
+.wave-box svg { display:block; width:100%; height:auto; }
+.wave-box p { font-size:.74rem; margin:2px 0 0; }
+.metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); }
+.metric { background:var(--surface); padding:18px 20px; min-width:0; }
+.metric dt { font-size:.73rem; color:var(--muted); }
+.metric dd { margin:4px 0 3px; font:400 1.25rem var(--mono); color:var(--gold); }
+.metric small { display:block; font-size:.7rem; color:var(--muted); }
+.explainer { padding:18px 24px; font-size:.85rem; }
+.explainer p:last-child { margin-bottom:0; }
+.search-box { display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+.search-field { display:grid; gap:6px; flex:1; min-width:200px; }
+.search-field label { font-size:.75rem; color:var(--muted); }
+#termSearch { width:100%; border:1px solid var(--control-line); border-radius:9px; padding:12px 14px; background:var(--raised); color:var(--ink); }
+#termSearch::placeholder { color:var(--muted); opacity:1; }
+/* Overlap the border so pointer and keyboard focus stay a single thin line. */
+.input-wrap input,#termSearch { appearance:none; -webkit-appearance:none; box-shadow:none; outline:1px solid transparent; outline-offset:-1px; }
+.input-wrap input:hover,#termSearch:hover { border-color:var(--muted); }
+.input-wrap input:is(:focus,:active),#termSearch:is(:focus,:active) { border-color:var(--copper); outline-color:var(--copper); }
+#termCount { color:var(--muted); font-size:.75rem; align-self:flex-end; padding-bottom:13px; }
+.glossary { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.term { padding:21px; background:var(--surface); border:1px solid var(--line); border-radius:12px; min-width:0; scroll-margin-top:24px; }
+.term:target { border-color:var(--copper); box-shadow:0 0 0 2px var(--soft); }
+.term-tag { font-size:.65rem; text-transform:uppercase; letter-spacing:.09em; color:var(--copper); margin-bottom:8px; }
+.term h3 a { color:var(--ink); text-decoration:none; }
+.term p { font-size:.86rem; margin-bottom:12px; }
+.term p:last-child { margin-bottom:0; }
+details { border-top:1px solid var(--line); padding-top:10px; }
+summary { cursor:pointer; color:var(--copper); font-size:.78rem; }
+details[open] summary { margin-bottom:12px; }
+code { font-family:var(--mono); font-size:.83em; overflow-wrap:anywhere; }
+.formula { display:block; padding:12px 14px; background:var(--soft); border-radius:7px; font:400 .8rem/1.7 var(--mono); overflow-wrap:anywhere; margin:12px 0; }
+.pipeline { list-style:none; padding:0; counter-reset:pipe; }
+.pipeline > li { padding:20px 0 20px 42px; border-top:1px solid var(--line); position:relative; counter-increment:pipe; }
+.pipeline > li::before { content:counter(pipe); position:absolute; top:22px; left:0; width:26px; height:26px; border:1px solid var(--line); border-radius:50%; display:grid; place-items:center; font:.75rem var(--mono); color:var(--copper); }
+.pipeline p { font-size:.88rem; margin-bottom:0; }
+.table-wrap { overflow:auto; border:1px solid var(--line); border-radius:10px; margin:18px 0; }
+table { width:100%; border-collapse:collapse; font-size:.82rem; }
+th,td { padding:12px 15px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+th { background:var(--soft); font-weight:600; }
+tr:last-child td { border-bottom:0; }
+.reading { display:grid; gap:14px; }
+.reading article { padding:22px; border:1px solid var(--line); border-radius:12px; background:var(--surface); }
+.reading p { font-size:.9rem; margin-bottom:12px; }
+.reading .eyebrow { font-size:.64rem; margin-bottom:8px; }
+.reading a,.source-note { font-size:.78rem; }
+.sources { padding-left:20px; }
+.sources li { margin:12px 0; font-size:.85rem; }
+.sources small { display:block; color:var(--muted); font-size:.76rem; }
+footer { margin-top:24px; padding:24px 0 36px; border-top:1px solid var(--line); color:var(--muted); font-size:.75rem; display:flex; gap:16px; justify-content:space-between; }
+@media(max-width:1050px) { .layout { grid-template-columns:170px minmax(0,1fr); gap:28px; } .glossary { grid-template-columns:1fr; } }
+@media(max-width:700px) {
+  .shell { width:calc(100% - 32px); } .masthead { padding:18px 0; gap:10px; } .brand { gap:9px; }
+  .brand svg { width:32px; height:32px; } .brand-name { font-size:1.18rem; } .back { font-size:.73rem; }
+  .hero { padding:36px 0 28px; } .hero p { font-size:.95rem; } .layout { display:block; }
+  .toc { position:static; margin-bottom:30px; } .toc-links { display:flex; flex-wrap:wrap; gap:8px; }
+  .toc a { border:1px solid var(--line); border-radius:7px; padding:7px 10px; font-size:.74rem; gap:6px; }
+  .toc p { margin-bottom:10px; } section { margin-bottom:42px; } h2 { font-size:1.7rem; }
+  .steps { grid-template-columns:1fr; } .explorer-top { padding:18px; } .fields { gap:12px; }
+  .metrics { grid-template-columns:1fr; } .metric { padding:13px 18px; } .metric dd { font-size:1.1rem; }
+  .wave-box { padding:8px 12px 14px; } .explainer { padding:16px 18px; }
+  .search-field { min-width:0; flex-basis:100%; } #termCount { padding-bottom:0; }
+  .term,.reading article { padding:18px; } footer { flex-wrap:wrap; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+</style>
+</head>
+<body>
+<a class="skip" href="#start">Skip to the guide</a>
+<div class="shell">
+  <header class="masthead">
+    <a class="brand" href="index.html" aria-label="Xymatics Lab homepage">
+      <svg viewBox="0 0 256 256" aria-hidden="true">
+        <defs><mask id="guideNodalInk" maskUnits="userSpaceOnUse" x="0" y="0" width="256" height="256"><rect width="256" height="256" fill="#fff"/><g fill="none" stroke="#000" stroke-linecap="round"><path d="M32.44 38.69C32.8 39.05 33.88 40.13 34.59 40.84C35.31 41.56 36.03 42.28 36.75 43C37.47 43.71 38.18 44.43 38.92 45.13C39.67 45.82 40.43 46.49 41.19 47.16C41.96 47.83 42.72 48.49 43.49 49.16C44.26 49.83 45.02 50.49 45.79 51.16C46.55 51.83 47.32 52.5 48.08 53.16C48.85 53.83 49.61 54.5 50.38 55.16C51.14 55.83 51.91 56.5 52.67 57.17C53.44 57.83 54.2 58.5 54.97 59.17C55.73 59.83 56.5 60.5 57.26 61.17C58.03 61.84 58.79 62.5 59.56 63.17C60.32 63.84 61.09 64.5 61.86 65.17C62.62 65.84 63.39 66.51 64.15 67.17C64.92 67.84 65.68 68.51 66.45 69.18C67.21 69.84 67.98 70.51 68.74 71.18C69.51 71.84 70.27 72.51 71.04 73.18C71.8 73.85 72.57 74.51 73.33 75.18C74.1 75.85 74.86 76.51 75.63 77.18C76.39 77.85 77.16 78.52 77.92 79.18C78.69 79.85 79.45 80.52 80.22 81.19C80.99 81.85 81.75 82.52 82.52 83.19C83.28 83.85 84.43 84.86 84.81 85.19" stroke-width="1.11"/><path d="M96.78 36.47C96.8 36.98 96.83 38.52 96.87 39.54C96.9 40.57 96.93 41.6 97.01 42.62C97.08 43.64 97.19 44.66 97.33 45.68C97.47 46.7 97.64 47.71 97.84 48.72C98.05 49.72 98.27 50.73 98.56 51.71C98.84 52.7 99.16 53.68 99.53 54.63C99.9 55.58 100.32 56.53 100.79 57.44C101.25 58.35 101.74 59.26 102.31 60.11C102.88 60.96 103.53 61.77 104.21 62.53C104.9 63.29 105.64 64.01 106.43 64.66C107.21 65.31 108.07 65.9 108.94 66.43C109.82 66.96 110.73 67.46 111.67 67.86C112.6 68.27 113.59 68.58 114.57 68.87C115.56 69.17 117.06 69.5 117.56 69.62" stroke-width="0.88"/><path d="M217.31 32.44C216.95 32.8 215.87 33.88 215.16 34.59C214.44 35.31 213.72 36.03 213 36.75C212.29 37.47 211.57 38.18 210.87 38.92C210.18 39.67 209.51 40.43 208.84 41.19C208.17 41.96 207.51 42.72 206.84 43.49C206.17 44.26 205.51 45.02 204.84 45.79C204.17 46.55 203.5 47.32 202.84 48.08C202.17 48.85 201.5 49.61 200.84 50.38C200.17 51.14 199.5 51.91 198.83 52.67C198.17 53.44 197.5 54.2 196.83 54.97C196.17 55.73 195.5 56.5 194.83 57.26C194.16 58.03 193.5 58.79 192.83 59.56C192.16 60.32 191.5 61.09 190.83 61.86C190.16 62.62 189.49 63.39 188.83 64.15C188.16 64.92 187.49 65.68 186.82 66.45C186.16 67.21 185.49 67.98 184.82 68.74C184.16 69.51 183.49 70.27 182.82 71.04C182.15 71.8 181.49 72.57 180.82 73.33C180.15 74.1 179.49 74.86 178.82 75.63C178.15 76.39 177.48 77.16 176.82 77.92C176.15 78.69 175.48 79.45 174.81 80.22C174.15 80.99 173.48 81.75 172.81 82.52C172.15 83.28 171.14 84.43 170.81 84.81" stroke-width="1.11"/><path d="M219.53 96.78C219.02 96.8 217.48 96.83 216.46 96.87C215.43 96.9 214.4 96.93 213.38 97.01C212.36 97.08 211.34 97.19 210.32 97.33C209.3 97.47 208.29 97.64 207.28 97.84C206.28 98.05 205.27 98.27 204.29 98.56C203.3 98.84 202.32 99.16 201.37 99.53C200.42 99.9 199.47 100.32 198.56 100.79C197.65 101.25 196.74 101.74 195.89 102.31C195.04 102.88 194.23 103.53 193.47 104.21C192.71 104.9 191.99 105.64 191.34 106.43C190.69 107.21 190.1 108.07 189.57 108.94C189.04 109.82 188.54 110.73 188.14 111.67C187.73 112.6 187.42 113.59 187.13 114.57C186.83 115.56 186.5 117.06 186.38 117.56" stroke-width="0.88"/><path d="M223.56 217.31C223.2 216.95 222.12 215.87 221.41 215.16C220.69 214.44 219.97 213.72 219.25 213C218.53 212.29 217.82 211.57 217.08 210.87C216.33 210.18 215.57 209.51 214.81 208.84C214.04 208.17 213.28 207.51 212.51 206.84C211.74 206.17 210.98 205.51 210.21 204.84C209.45 204.17 208.68 203.5 207.92 202.84C207.15 202.17 206.39 201.5 205.62 200.84C204.86 200.17 204.09 199.5 203.33 198.83C202.56 198.17 201.8 197.5 201.03 196.83C200.27 196.17 199.5 195.5 198.74 194.83C197.97 194.16 197.21 193.5 196.44 192.83C195.68 192.16 194.91 191.5 194.14 190.83C193.38 190.16 192.61 189.49 191.85 188.83C191.08 188.16 190.32 187.49 189.55 186.82C188.79 186.16 188.02 185.49 187.26 184.82C186.49 184.16 185.73 183.49 184.96 182.82C184.2 182.15 183.43 181.49 182.67 180.82C181.9 180.15 181.14 179.49 180.37 178.82C179.61 178.15 178.84 177.48 178.08 176.82C177.31 176.15 176.55 175.48 175.78 174.81C175.01 174.15 174.25 173.48 173.48 172.81C172.72 172.15 171.57 171.14 171.19 170.81" stroke-width="1.11"/><path d="M159.22 219.53C159.2 219.02 159.17 217.48 159.13 216.46C159.1 215.43 159.07 214.4 158.99 213.38C158.92 212.36 158.81 211.34 158.67 210.32C158.53 209.3 158.36 208.29 158.16 207.28C157.95 206.28 157.73 205.27 157.44 204.29C157.16 203.3 156.84 202.32 156.47 201.37C156.1 200.42 155.68 199.47 155.21 198.56C154.75 197.65 154.26 196.74 153.69 195.89C153.12 195.04 152.47 194.23 151.79 193.47C151.1 192.71 150.36 191.99 149.57 191.34C148.79 190.69 147.93 190.1 147.06 189.57C146.18 189.04 145.27 188.54 144.33 188.14C143.4 187.73 142.41 187.42 141.43 187.13C140.44 186.83 138.94 186.5 138.44 186.38" stroke-width="0.88"/><path d="M38.69 223.56C39.05 223.2 40.13 222.12 40.84 221.41C41.56 220.69 42.28 219.97 43 219.25C43.71 218.53 44.43 217.82 45.13 217.08C45.82 216.33 46.49 215.57 47.16 214.81C47.83 214.04 48.49 213.28 49.16 212.51C49.83 211.74 50.49 210.98 51.16 210.21C51.83 209.45 52.5 208.68 53.16 207.92C53.83 207.15 54.5 206.39 55.16 205.62C55.83 204.86 56.5 204.09 57.17 203.33C57.83 202.56 58.5 201.8 59.17 201.03C59.83 200.27 60.5 199.5 61.17 198.74C61.84 197.97 62.5 197.21 63.17 196.44C63.84 195.68 64.5 194.91 65.17 194.14C65.84 193.38 66.51 192.61 67.17 191.85C67.84 191.08 68.51 190.32 69.18 189.55C69.84 188.79 70.51 188.02 71.18 187.26C71.84 186.49 72.51 185.73 73.18 184.96C73.85 184.2 74.51 183.43 75.18 182.67C75.85 181.9 76.51 181.14 77.18 180.37C77.85 179.61 78.52 178.84 79.18 178.08C79.85 177.31 80.52 176.55 81.19 175.78C81.85 175.01 82.52 174.25 83.19 173.48C83.85 172.72 84.86 171.57 85.19 171.19" stroke-width="1.11"/><path d="M36.47 159.22C36.98 159.2 38.52 159.17 39.54 159.13C40.57 159.1 41.6 159.07 42.62 158.99C43.64 158.92 44.66 158.81 45.68 158.67C46.7 158.53 47.71 158.36 48.72 158.16C49.72 157.95 50.73 157.73 51.71 157.44C52.7 157.16 53.68 156.84 54.63 156.47C55.58 156.1 56.53 155.68 57.44 155.21C58.35 154.75 59.26 154.26 60.11 153.69C60.96 153.12 61.77 152.47 62.53 151.79C63.29 151.1 64.01 150.36 64.66 149.57C65.31 148.79 65.9 147.93 66.43 147.06C66.96 146.18 67.46 145.27 67.86 144.33C68.27 143.4 68.58 142.41 68.87 141.43C69.17 140.44 69.5 138.94 69.62 138.44" stroke-width="0.88"/></g></mask></defs><g fill="none" stroke="currentColor" stroke-linecap="round" mask="url(#guideNodalInk)"><path d="M99.33 42C99.34 42.42 99.36 43.68 99.4 44.51C99.45 45.35 99.51 46.18 99.6 47.02C99.69 47.85 99.81 48.68 99.95 49.5C100.09 50.33 100.26 51.15 100.46 51.96C100.65 52.78 100.88 53.59 101.14 54.38C101.4 55.18 101.69 55.97 102.02 56.73C102.35 57.5 102.71 58.26 103.12 58.99C103.53 59.72 103.98 60.43 104.47 61.11C104.96 61.79 105.49 62.44 106.06 63.05C106.63 63.66 107.25 64.23 107.9 64.77C108.54 65.3 109.23 65.79 109.93 66.24C110.63 66.69 111.37 67.09 112.12 67.46C112.87 67.83 113.65 68.16 114.43 68.45C115.21 68.74 116.01 69 116.82 69.23C117.62 69.46 118.44 69.65 119.26 69.82C120.08 69.99 120.91 70.13 121.74 70.24C122.57 70.36 123.4 70.45 124.24 70.52C125.07 70.58 125.91 70.63 126.74 70.65C127.58 70.67 128.42 70.67 129.26 70.65C130.09 70.63 130.93 70.58 131.76 70.52C132.6 70.45 133.43 70.36 134.26 70.24C135.09 70.13 135.92 69.99 136.74 69.82C137.56 69.65 138.38 69.46 139.18 69.23C139.99 69 140.79 68.74 141.57 68.45C142.35 68.16 143.13 67.83 143.88 67.46C144.63 67.09 145.37 66.69 146.07 66.24C146.77 65.79 147.46 65.3 148.1 64.77C148.75 64.23 149.37 63.66 149.94 63.05C150.51 62.44 151.04 61.79 151.53 61.11C152.02 60.43 152.47 59.72 152.88 58.99C153.29 58.26 153.65 57.5 153.98 56.73C154.31 55.97 154.6 55.18 154.86 54.38C155.12 53.59 155.35 52.78 155.54 51.96C155.74 51.15 155.91 50.33 156.05 49.5C156.19 48.68 156.31 47.85 156.4 47.02C156.49 46.18 156.55 45.35 156.6 44.51C156.64 43.68 156.66 42.42 156.67 42M214 99.33C213.58 99.34 212.32 99.36 211.49 99.4C210.65 99.45 209.82 99.51 208.98 99.6C208.15 99.69 207.32 99.81 206.5 99.95C205.67 100.09 204.85 100.26 204.04 100.46C203.22 100.65 202.41 100.88 201.62 101.14C200.82 101.4 200.03 101.69 199.27 102.02C198.5 102.35 197.74 102.71 197.01 103.12C196.28 103.53 195.57 103.98 194.89 104.47C194.21 104.96 193.56 105.49 192.95 106.06C192.34 106.63 191.77 107.25 191.23 107.9C190.7 108.54 190.21 109.23 189.76 109.93C189.31 110.63 188.91 111.37 188.54 112.12C188.17 112.87 187.84 113.65 187.55 114.43C187.26 115.21 187 116.01 186.77 116.82C186.54 117.62 186.35 118.44 186.18 119.26C186.01 120.08 185.87 120.91 185.76 121.74C185.64 122.57 185.55 123.4 185.48 124.24C185.42 125.07 185.37 125.91 185.35 126.74C185.33 127.58 185.33 128.42 185.35 129.26C185.37 130.09 185.42 130.93 185.48 131.76C185.55 132.6 185.64 133.43 185.76 134.26C185.87 135.09 186.01 135.92 186.18 136.74C186.35 137.56 186.54 138.38 186.77 139.18C187 139.99 187.26 140.79 187.55 141.57C187.84 142.35 188.17 143.13 188.54 143.88C188.91 144.63 189.31 145.37 189.76 146.07C190.21 146.77 190.7 147.46 191.23 148.1C191.77 148.75 192.34 149.37 192.95 149.94C193.56 150.51 194.21 151.04 194.89 151.53C195.57 152.02 196.28 152.47 197.01 152.88C197.74 153.29 198.5 153.65 199.27 153.98C200.03 154.31 200.82 154.6 201.62 154.86C202.41 155.12 203.22 155.35 204.04 155.54C204.85 155.74 205.67 155.91 206.5 156.05C207.32 156.19 208.15 156.31 208.98 156.4C209.82 156.49 210.65 156.55 211.49 156.6C212.32 156.64 213.58 156.66 214 156.67M156.67 214C156.66 213.58 156.64 212.32 156.6 211.49C156.55 210.65 156.49 209.82 156.4 208.98C156.31 208.15 156.19 207.32 156.05 206.5C155.91 205.67 155.74 204.85 155.54 204.04C155.35 203.22 155.12 202.41 154.86 201.62C154.6 200.82 154.31 200.03 153.98 199.27C153.65 198.5 153.29 197.74 152.88 197.01C152.47 196.28 152.02 195.57 151.53 194.89C151.04 194.21 150.51 193.56 149.94 192.95C149.37 192.34 148.75 191.77 148.1 191.23C147.46 190.7 146.77 190.21 146.07 189.76C145.37 189.31 144.63 188.91 143.88 188.54C143.13 188.17 142.35 187.84 141.57 187.55C140.79 187.26 139.99 187 139.18 186.77C138.38 186.54 137.56 186.35 136.74 186.18C135.92 186.01 135.09 185.87 134.26 185.76C133.43 185.64 132.6 185.55 131.76 185.48C130.93 185.42 130.09 185.37 129.26 185.35C128.42 185.33 127.58 185.33 126.74 185.35C125.91 185.37 125.07 185.42 124.24 185.48C123.4 185.55 122.57 185.64 121.74 185.76C120.91 185.87 120.08 186.01 119.26 186.18C118.44 186.35 117.62 186.54 116.82 186.77C116.01 187 115.21 187.26 114.43 187.55C113.65 187.84 112.87 188.17 112.12 188.54C111.37 188.91 110.63 189.31 109.93 189.76C109.23 190.21 108.54 190.7 107.9 191.23C107.25 191.77 106.63 192.34 106.06 192.95C105.49 193.56 104.96 194.21 104.47 194.89C103.98 195.57 103.53 196.28 103.12 197.01C102.71 197.74 102.35 198.5 102.02 199.27C101.69 200.03 101.4 200.82 101.14 201.62C100.88 202.41 100.65 203.22 100.46 204.04C100.26 204.85 100.09 205.67 99.95 206.5C99.81 207.32 99.69 208.15 99.6 208.98C99.51 209.82 99.45 210.65 99.4 211.49C99.36 212.32 99.34 213.58 99.33 214M42 156.67C42.42 156.66 43.68 156.64 44.51 156.6C45.35 156.55 46.18 156.49 47.02 156.4C47.85 156.31 48.68 156.19 49.5 156.05C50.33 155.91 51.15 155.74 51.96 155.54C52.78 155.35 53.59 155.12 54.38 154.86C55.18 154.6 55.97 154.31 56.73 153.98C57.5 153.65 58.26 153.29 58.99 152.88C59.72 152.47 60.43 152.02 61.11 151.53C61.79 151.04 62.44 150.51 63.05 149.94C63.66 149.37 64.23 148.75 64.77 148.1C65.3 147.46 65.79 146.77 66.24 146.07C66.69 145.37 67.09 144.63 67.46 143.88C67.83 143.13 68.16 142.35 68.45 141.57C68.74 140.79 69 139.99 69.23 139.18C69.46 138.38 69.65 137.56 69.82 136.74C69.99 135.92 70.13 135.09 70.24 134.26C70.36 133.43 70.45 132.6 70.52 131.76C70.58 130.93 70.63 130.09 70.65 129.26C70.67 128.42 70.67 127.58 70.65 126.74C70.63 125.91 70.58 125.07 70.52 124.24C70.45 123.4 70.36 122.57 70.24 121.74C70.13 120.91 69.99 120.08 69.82 119.26C69.65 118.44 69.46 117.62 69.23 116.82C69 116.01 68.74 115.21 68.45 114.43C68.16 113.65 67.83 112.87 67.46 112.12C67.09 111.37 66.69 110.63 66.24 109.93C65.79 109.23 65.3 108.54 64.77 107.9C64.23 107.25 63.66 106.63 63.05 106.06C62.44 105.49 61.79 104.96 61.11 104.47C60.43 103.98 59.72 103.53 58.99 103.12C58.26 102.71 57.5 102.35 56.73 102.02C55.97 101.69 55.18 101.4 54.38 101.14C53.59 100.88 52.78 100.65 51.96 100.46C51.15 100.26 50.33 100.09 49.5 99.95C48.68 99.81 47.85 99.69 47.02 99.6C46.18 99.51 45.35 99.45 44.51 99.4C43.68 99.36 42.42 99.34 42 99.33" stroke-width="8"/><path d="M42 42L214 214M42 214L214 42" stroke-width="13"/></g>
+      </svg>
+      <span><span class="brand-name">Xymatics Lab</span><span class="brand-note">Guide</span></span>
+    </a>
+    <a class="back" href="index.html#download">Get Xymatics</a>
+  </header>
+  <div class="hero">
+    <h1>Xymatics Lab guide</h1>
+    <p>Learn the controls, audio measurements, and visualization models used in Xymatics Lab.</p>
+  </div>
+  <div class="layout">
+    <nav class="toc" aria-label="Guide contents">
+      <p class="eyebrow">In this guide</p>
+      <div class="toc-links">
+        <a href="#start"><b>01</b> Getting started</a>
+        <a href="#explore"><b>02</b> Explore two notes</a>
+        <a href="#dictionary"><b>03</b> Sound glossary</a>
+        <a href="#calculations"><b>04</b> Calculations &amp; models</a>
+        <a href="#meaning"><b>05</b> Music &amp; meaning</a>
+        <a href="#sources"><b>06</b> Sources</a>
+      </div>
+    </nav>
+    <main>
+      <section id="start" aria-labelledby="startTitle">
+        <div class="section-head"><span>01</span><h2 id="startTitle">Getting started</h2></div>
+        <p class="intro">You do not need music theory to begin. Change one thing at a time and notice what your ears, the numbers, and the picture each tell you.</p>
+        <ol class="steps">
+          <li><h3>Start with an interval</h3><p>In the lab, choose <strong>Interval Lab</strong>, a root note, and <strong>Perfect 5th</strong>. Use <strong>6 harmonics</strong> to compare sounds with overtones. Before you play, “Interval preview” shows calculations for those selected notes.</p></li>
+          <li><h3>Compare two tunings</h3><p>Switch between <strong>12-TET</strong> and <strong>Just</strong>. A just fifth is exactly 3:2; an equal-tempered fifth is close. Watch the ratio and beat-rate readouts. Select <strong>Play tones</strong> to hear the pair.</p></li>
+          <li><h3>Try your own audio</h3><p>Select <strong>Upload audio</strong> or the example track. The timeline summarizes the file. During playback, Sound insights follows the current moment. Select <strong>Expand</strong> above the visualization for a larger view.</p></li>
+          <li><h3>Choose what to see</h3><p>The <strong>View</strong> menu groups sound measurements, wave models, and mathematical patterns. Try <strong>Spectrum Bloom</strong> for frequency balance, or <strong>Spectral Terrain</strong> to see recent changes. Open <strong>How this view works</strong> for the selected view's equation and assumptions. <a href="#visualization-views">Compare all eleven views.</a></p></li>
+          <li><h3>Read the separate results</h3><p><strong>Energy &amp; feeling</strong> describes audio cues and possible associations. <strong>Harmony</strong> estimates spectral consonance. <strong>Signal integrity</strong> checks the recording. <strong>Pattern symmetry</strong> describes generated spatial patterns; it is not applied to frequency plots or vector drawings. Each answers a different question.</p></li>
+        </ol>
+        <div class="callout"><p><strong>Preview, Live, and Paused.</strong> Numbers can exist before playback because the selected notes are known. “Live” means playback is active; “Paused” holds the last played file moment. A whole-track report can be calculated without playing the file.</p></div>
+      </section>
+
+      <section id="explore" aria-labelledby="exploreTitle">
+        <div class="section-head"><span>02</span><h2 id="exploreTitle">Explore two notes</h2></div>
+        <p class="intro">Frequency counts cycles. An interval compares two frequencies. Try an exact fifth, then a tempered fifth: nearly the same distance, with a small mismatch between their matching harmonics.</p>
+        <div class="explorer">
+          <div class="explorer-top">
+            <div class="preset-row" role="group" aria-label="Interval examples">
+              <button class="preset" type="button" data-preset="unison" aria-pressed="false">Unison · 1:1</button>
+              <button class="preset" type="button" data-preset="fifth" aria-pressed="true">Just fifth · 3:2</button>
+              <button class="preset" type="button" data-preset="tet" aria-pressed="false">Tempered fifth</button>
+              <button class="preset" type="button" data-preset="close" aria-pressed="false">Close pair · +2 Hz</button>
+              <button class="preset" type="button" data-preset="octave" aria-pressed="false">Octave · 2:1</button>
+            </div>
+            <div class="fields">
+              <label for="frequencyOne">First frequency<span class="input-wrap"><input id="frequencyOne" type="number" min="40" max="9000" step="any" value="220" inputmode="decimal" aria-describedby="explorerHelp explorerError"><span>Hz</span></span></label>
+              <label for="frequencyTwo">Second frequency<span class="input-wrap"><input id="frequencyTwo" type="number" min="40" max="9000" step="any" value="330" inputmode="decimal" aria-describedby="explorerHelp explorerError"><span>Hz</span></span></label>
+            </div>
+            <p id="explorerError" class="error" role="status" hidden>Enter two frequencies between 40 and 9,000 Hz.</p>
+          </div>
+          <div class="wave-box">
+            <div class="wave-legend"><span id="waveLabelOne">First · 220 Hz</span><span id="waveLabelTwo">Second · 330 Hz</span></div>
+            <svg id="waveDiagram" viewBox="0 0 660 180" role="img" aria-labelledby="waveTitle waveDesc">
+              <title id="waveTitle">Two frequencies over the same time window</title>
+              <desc id="waveDesc">The first wave has four cycles. The second has six cycles, because its frequency is one and a half times higher.</desc>
+              <path d="M12 49H648M12 127H648" stroke="var(--line)" stroke-width=".7" opacity=".6"/>
+              <path id="waveOne" d="" fill="none" stroke="var(--copper)" stroke-width="2"/>
+              <path id="waveTwo" d="" fill="none" stroke="var(--gold)" stroke-width="2"/>
+            </svg>
+            <p id="waveWindow">The same 18.18 ms window for both waves. These are mathematical sine waves.</p>
+          </div>
+          <dl class="metrics" aria-live="polite" aria-atomic="true">
+            <div class="metric"><dt>Nearby simple ratio</dt><dd id="exampleRatio">3 : 2</dd><small id="exampleDeviation">0.000¢ from the ratio</small></div>
+            <div class="metric"><dt>Interval distance</dt><dd id="exampleCents">701.96¢</dd><small>1 octave = 1,200 cents</small></div>
+            <div class="metric"><dt>Harmonic beat rate</dt><dd id="exampleBeat">0.000 Hz</dd><small id="exampleHarmonics">|2 × 330 − 3 × 220|</small></div>
+          </dl>
+          <div class="explainer">
+            <p id="explorerHelp">The app compares ratios within one octave and looks for small whole numbers within ±20 cents. This example uses the same ratio-search rule. It calculates relationships; it does not play audio.</p>
+            <p id="foldNote" hidden></p>
+            <p><strong>An exact fifth can show a zero harmonic beat rate.</strong> The app compares matching harmonics: 3 × 220 and 2 × 330 are both 660 Hz. The fundamentals still differ by 110 Hz. This readout is separate from song tempo and does not describe every interaction in a complex sound.</p>
+          </div>
+        </div>
+        <noscript><p class="callout">The interactive explorer and glossary search require JavaScript. All definitions and the default 220 Hz / 330 Hz example remain readable.</p></noscript>
+      </section>
+
+      <section id="dictionary" aria-labelledby="dictionaryTitle">
+        <div class="section-head"><span>03</span><h2 id="dictionaryTitle">Sound glossary</h2></div>
+        <p class="intro">A quick definition first; open “How the app uses it” for the calculation or interpretation. You can link directly to a term, such as <a href="#roughness">roughness</a> or <a href="#signal-integrity">signal integrity</a>.</p>
+        <div class="search-box">
+          <div class="search-field"><label for="termSearch">Find a term or a question</label><input id="termSearch" type="search" placeholder="Try “ratio”, “clipping”, or “pattern”" autocomplete="off" aria-controls="glossary"></div>
+          <span id="termCount" role="status" aria-live="polite"></span>
+        </div>
+        <p id="noTerms" class="callout" hidden>No matching terms. Try a shorter word, or clear the search to show everything.</p>
+        <div id="glossary" class="glossary">
+          <article class="term" id="frequency" data-alias="frequencie frequencies hertz hz cycles">
+            <div class="term-tag">The sound</div><h3><a href="#frequency">Frequency · Hz</a></h3>
+            <p>How many times a wave repeats each second. A 440 Hz wave repeats 440 times per second. Higher frequency usually means higher perceived pitch.</p>
+            <details><summary>How the app uses it</summary><p>For a selected note, frequency is calculated from the tuning reference and its semitone distance from A4.</p><code class="formula">f = A4 × 2^((MIDI note − 69) / 12)</code><p>A4 is MIDI note 69 and C4 is note 60. At A4 = 440 Hz, C4 is about 261.63 Hz. For a file, the app estimates frequencies from peaks in its spectrum; the displayed values are estimates, not exact note transcription.</p></details>
+          </article>
+          <article class="term" id="pitch" data-alias="notes note midi root a4 440 432 tuning reference">
+            <div class="term-tag">The sound</div><h3><a href="#pitch">Pitch &amp; root note</a></h3>
+            <p>Pitch is the high-or-low quality you hear. A note name labels a pitch in a tuning system. The root note is the starting note of the chosen interval.</p>
+            <details><summary>How the app uses it</summary><p>The app maps estimated frequencies to the nearest equal-tempered note using <code>69 + 12 × log₂(f / A4)</code>, rounded to a whole MIDI note. A4 is a reference, not a health setting. Changing 440 to 432 shifts the tuning of selected tones; it does not prove a special biological effect.</p></details>
+          </article>
+          <article class="term" id="interval" data-alias="unison perfect fifth major minor third semitone octave p5 m3 m2">
+            <div class="term-tag">Relationships</div><h3><a href="#interval">Interval</a></h3>
+            <p>The distance between two pitches: unison, second, third, fifth, octave, and so on. It depends on their frequency ratio rather than their frequency difference alone.</p>
+            <details><summary>How the app uses it</summary><p>A perfect fifth is seven semitones in 12-TET, or exactly 3:2 in just tuning. The file readout summarizes the two strongest pitch classes and folds their frequency relationship into one octave. It does not identify every note in a chord.</p></details>
+          </article>
+          <article class="term" id="ratio" data-alias="fraction p q simple ratios 20 cents">
+            <div class="term-tag">Relationships</div><h3><a href="#ratio">Ratio</a></h3>
+            <p>A comparison by division. If two frequencies are 220 and 330 Hz, the higher divided by the lower is 1.5, written 3:2.</p>
+            <details><summary>How the app uses it</summary><p>After octave-folding, the app tests reduced fractions <code>p/q</code> with both numbers no larger than 16. Candidates must lie within ±20 cents. It chooses the lowest value of <code>log₂(pq) + |cents error| / 10</code>, balancing small numbers with tuning accuracy. In Just mode, a named interval uses its chosen exact fraction directly. “None within ±20¢” means no candidate met this rule.</p></details>
+          </article>
+          <article class="term" id="cents" data-alias="cent semitones logarithm mistuning detuning">
+            <div class="term-tag">Relationships</div><h3><a href="#cents">Cents</a></h3>
+            <p>A precise unit for pitch distance. One equal-tempered semitone is 100 cents; one octave is 1,200 cents. The ¢ symbol here means cents of pitch.</p>
+            <details><summary>How the app uses it</summary><code class="formula">distance = 1200 × log₂(f₂ / f₁)<br>error = 1200 × log₂(actual ratio / target ratio)</code><p>A 3:2 fifth is about 701.96 cents; a 12-TET fifth is 700 cents. Positive error means sharper than the target ratio, negative means flatter.</p></details>
+          </article>
+          <article class="term" id="tuning" data-alias="12-tet tet equal temperament just intonation octave">
+            <div class="term-tag">Relationships</div><h3><a href="#tuning">12-TET &amp; just tuning</a></h3>
+            <p>12-tone equal temperament divides each octave into 12 equal pitch steps. Just tuning builds the selected interval from a whole-number frequency ratio.</p>
+            <details><summary>How the app uses it</summary><code class="formula">12-TET: f₂ = f₁ × 2^(semitones / 12)<br>Just ratio: f₂ = f₁ × p/q</code><p>The tradeoff is musical: equal temperament makes the same interval structure available in every key; just ratios give exact relationships for the chosen pair. Neither makes every kind of music universally better.</p></details>
+          </article>
+          <article class="term" id="beat-rate" data-alias="beating beats bpm tempo binaural mismatch">
+            <div class="term-tag">Relationships</div><h3><a href="#beat-rate">Beat rate</a></h3>
+            <p>Nearby frequencies can create a pulsing loudness envelope. The app’s readout specifically estimates the mismatch between harmonics associated with the selected simple ratio.</p>
+            <details><summary>How the app uses it</summary><code class="formula">app beat rate = |q × f₂ − p × f₁|</code><p>For a 3:2 ratio, compare 2 × the higher note with 3 × the lower note. At 220 and 331 Hz, that mismatch is 2 Hz. Ordinary beating between two nearby fundamentals uses <code>|f₂ − f₁|</code>; these are different comparisons. With pure sine tones, the higher harmonics are absent, so this remains a calculated relationship rather than a measured audible pulse. File analysis suppresses mismatches below estimated frequency-resolution error. This is not BPM, and the app does not calculate binaural effects.</p></details>
+          </article>
+          <article class="term" id="partials" data-alias="harmonics overtone fundamental sine six 6">
+            <div class="term-tag">The sound</div><h3><a href="#partials">Partials &amp; harmonics</a></h3>
+            <p>Partials are the frequency components inside a sound. Harmonics are partials at whole-number multiples of a fundamental: f, 2f, 3f, and so on.</p>
+            <details><summary>How the app uses it</summary><p>“Sine” gives each generated tone one component. “6 harmonics” gives it six, with amplitude <code>1/n</code> for harmonic number n. Coincident components are merged. In audio files, strong peaks may be harmonics, separate notes, or other sound components; a detected peak is not automatically a fundamental.</p></details>
+          </article>
+          <article class="term" id="timbre" data-alias="tone colour color instrument spectrum sine harmonics">
+            <div class="term-tag">The sound</div><h3><a href="#timbre">Timbre</a></h3>
+            <p>The character of a sound: why a flute and a violin can play the same note and still sound different. Their partials, loudness envelopes, and noise differ.</p>
+            <details><summary>How the app uses it</summary><p>The tone controls compare sine waves with a six-harmonic model. Adding harmonics creates many more interactions between nearby components, changing roughness and the dissonance curve. A simple frequency ratio alone cannot predict the sound of every instrument.</p></details>
+          </article>
+          <article class="term" id="roughness" data-alias="dissonance harshness plomp levelt sethares normalized">
+            <div class="term-tag">The reading</div><h3><a href="#roughness">Roughness</a></h3>
+            <p>A model of the sensory friction created by nearby frequency components. Slow interference can sound like pulses; closer, faster interactions can sound rough.</p>
+            <details><summary>How the app uses it</summary><p>For each pair of frequency-sorted peaks, the app applies a Sethares-style curve, weighted by the smaller amplitude, then divides the sum by total amplitude.</p><code class="formula">s = 0.24 / (0.0207 × f_low + 18.96)<br>x = s × (f_high − f_low)<br>pair = min(a_low, a_high) × (e^(−3.5x) − e^(−5.75x))</code><p>The displayed roughness is divided by a reference: C4 plus an equal-tempered minor second, each with six harmonics. <strong>1.00 means that reference</strong>; it is not a percentage or a universal limit. Absolute pitch and timbre affect the result. <a href="https://sethares.engr.wisc.edu/consemi.html">Read Sethares’ explanation of timbre and consonance.</a></p></details>
+          </article>
+          <article class="term" id="harmony" data-alias="harmonious score balanced tension tense dissonant consonance verdict 100">
+            <div class="term-tag">The reading</div><h3><a href="#harmony">Harmony score</a></h3>
+            <p>A 0–100 estimate combining low roughness, a harmonic spectrum, and relatively simple pitch ratios. It summarizes this model’s idea of consonance.</p>
+            <details><summary>How the app uses it</summary><p>The weights are 50% low roughness, 30% harmonic energy, and 20% low ratio complexity. Scores of 70 or more are “Harmonious”; 40–under 70 is “Balanced tension”; below 40 is “Tense / dissonant”. The <a href="#calculations">full formula is below</a>. A score does not measure musical quality, emotional value, spiritual significance, or health.</p></details>
+          </article>
+          <article class="term" id="dissonance-curve" data-alias="curve graph dips minima timbre consonance chart">
+            <div class="term-tag">The reading</div><h3><a href="#dissonance-curve">Dissonance curve</a></h3>
+            <p>A graph of modeled roughness as the second tone moves from unison to an octave above the first. A dip marks a relationship with lower roughness for that timbre and register.</p>
+            <details><summary>How the app uses it</summary><p>The app evaluates two tones with the selected timbre across 0–1,200 cents, using 5-cent samples plus exact simple-ratio positions. With harmonic tones, shared partials can create dips. With pure sine tones, named intervals do not create the same harmonic coincidences. The moving dot marks the current interval; it is not a recording of a listener’s preference.</p></details>
+          </article>
+          <article class="term" id="energy" data-alias="vibe feeling emotions low high balanced arousal energy score">
+            <div class="term-tag">Audio cues</div><h3><a href="#energy">Energy &amp; feeling</a></h3>
+            <p>A separate 0–100 estimate built from signal level, spectral brightness, and spectral change. “May evoke” labels offer possible associations with those cues.</p>
+            <details><summary>How the app uses it</summary><p>Energy uses 70% normalized RMS level, 20% normalized brightness, and 10% positive spectral flux. Below 35 is “Low vibe”; 65 or more is “High vibe”; the middle is “Balanced vibe”. Bass share is supporting evidence and does not directly add to this score. Roughness qualifies the suggested feeling labels, but does not enter the energy score. These weights are an engineering heuristic, not a validated emotion detector or a measure of spiritual energy.</p></details>
+          </article>
+          <article class="term" id="brightness" data-alias="spectral centroid dark bright frequency weighted average">
+            <div class="term-tag">Audio cues</div><h3><a href="#brightness">Brightness · spectral centroid</a></h3>
+            <p>The power-weighted average frequency of a spectrum. More power at high frequencies raises this value and often corresponds to a brighter sound.</p>
+            <details><summary>How the app uses it</summary><code class="formula">centroid = Σ(frequency × power) / Σpower</code><p>The app excludes the zero-frequency bin and normalizes the centroid on a logarithmic scale from 150 to 6,000 Hz for its energy estimate. Brightness is not the same as the strongest note’s pitch, and it does not say whether a sound is pleasant.</p></details>
+          </article>
+          <article class="term" id="bass-energy" data-alias="bass low frequencies power percent 250">
+            <div class="term-tag">Audio cues</div><h3><a href="#bass-energy">Bass energy</a></h3>
+            <p>The percentage of analyzed spectral power at frequencies up to 250 Hz. It describes the low-frequency share, rather than the overall volume.</p>
+            <details><summary>How the app uses it</summary><code class="formula">bass % = 100 × power at ≤250 Hz / total spectral power</code><p>The app derives power from the spectrum, excludes the zero-frequency bin, and displays the share as supporting audio evidence. A high bass percentage can belong to a quiet signal. This number does not directly contribute to the energy score.</p></details>
+          </article>
+          <article class="term" id="spectral-change" data-alias="flux spectral flux movement rhythm tempo percussion transient">
+            <div class="term-tag">Audio cues</div><h3><a href="#spectral-change">Spectral change · positive flux</a></h3>
+            <p>How much the distribution of frequency power has shifted toward newly stronger components since the previous spectrum. It can rise around changing notes or transients.</p>
+            <details><summary>How the app uses it</summary><p>Each spectrum is normalized to total power 1. The app sums positive bin-by-bin changes: <code>Σmax(0, current share − previous share)</code>. The result lies between 0 and 1 and is displayed as a percentage. Cue features update at up to 15 times per second. This is not tempo detection; stationary analytic tone previews use zero flux.</p></details>
+          </article>
+          <article class="term" id="harmonic-energy" data-alias="her harmonicity fundamental spectrum harmonic energy ratio">
+            <div class="term-tag">The reading</div><h3><a href="#harmonic-energy">Harmonic energy ratio</a></h3>
+            <p>The fraction of detected peak energy that fits up to two distinct harmonic families. A family contains approximately whole-number multiples of a possible fundamental.</p>
+            <details><summary>How the app uses it</summary><p>The app proposes fundamentals from the five strongest peaks and their divisions by 1 through 4, keeping candidates at least 40 Hz. It selects up to two families, adds only uncovered peaks, and accepts harmonics within ±25 cents. The final fraction is <code>covered Σa² / total Σa²</code>. Generated interval tones use a value of 1. Dense chords with more than two families can score lower even when they sound pleasant.</p></details>
+          </article>
+          <article class="term" id="tenney-height" data-alias="complexity tenney simplicity log bits">
+            <div class="term-tag">The reading</div><h3><a href="#tenney-height">Tenney height</a></h3>
+            <p>A way to describe the size of a reduced frequency ratio’s numbers. Smaller numbers usually mean lower ratio complexity in this model.</p>
+            <details><summary>How the app uses it</summary><code class="formula">Tenney height = log₂(p × q)</code><p>A 3:2 ratio has height about 2.585; a 16:15 ratio has height about 7.907. For a file, the app averages pairwise heights of the four strongest peaks, weighted by their amplitude products, after octave-folding. If a pair has no nearby ratio, it uses the reference maximum of <code>log₂(240)</code>, about 7.907. This is a mathematical measure, not a judgment of a listener.</p></details>
+          </article>
+          <article class="term" id="spectrum" data-alias="fft fast fourier transform peak peaks bin window blackman sample rate">
+            <div class="term-tag">The measurement</div><h3><a href="#spectrum">Spectrum, FFT &amp; peaks</a></h3>
+            <p>A spectrum shows how much of each frequency is present. An FFT is a calculation that turns a short slice of audio into frequency bins. Peaks are prominent local maxima.</p>
+            <details><summary>How the app uses it</summary><p>The app uses 8,192-sample, Blackman-windowed frames. Bin spacing is <code>sample rate / 8192</code>: about 5.38 Hz at 44.1 kHz. Interpolation refines peak locations but does not remove uncertainty. It selects up to 24 peaks from roughly 40–9,000 Hz, above an estimated noise floor +6 dB and within 60 dB of the strongest peak. The search also rejects very weak spectra. Longer windows trade better frequency detail for coarser time detail.</p></details>
+          </article>
+          <article class="term" id="spectrogram" data-alias="timeline waveform time frequency colors loudness">
+            <div class="term-tag">The measurement</div><h3><a href="#spectrogram">Waveform &amp; spectrogram</a></h3>
+            <p>The waveform shows the recording’s amplitude over time. A spectrogram shows its frequency content over time: horizontal position is time, vertical position is frequency, and color represents strength.</p>
+            <details><summary>How the app uses it</summary><p>The track scan produces a min/max waveform outline, a log-frequency spectrogram, and one-second harmony summaries. Bright lines may be notes or harmonics; dense bands may be complex tones or noise. The harmony line is a separate model result, not the spectrogram’s brightness.</p></details>
+          </article>
+          <article class="term" id="signal-integrity" data-alias="clean minor issues distorted recording damage">
+            <div class="term-tag">The recording</div><h3><a href="#signal-integrity">Signal integrity</a></h3>
+            <p>A check for certain problems in the recorded signal, including flat-topped peaks, little headroom, DC offset, and strongly opposing stereo channels.</p>
+            <details><summary>How the app uses it</summary><p>High-severity clipping or stereo phase flags produce “Distorted”; lesser flags produce “Minor issues”; no detected flags produces “Clean”. Integrity is calculated separately from harmony and does not directly change the harmony formula. “Clean” only means these checks found no issue; it does not certify a recording or detect every kind of distortion.</p></details>
+          </article>
+          <article class="term" id="clipping" data-alias="flat tops flat topped runs compressed mp3 aac lossless wav">
+            <div class="term-tag">The recording</div><h3><a href="#clipping">Clipping</a></h3>
+            <p>When a signal exceeds a system’s available range, its peaks can flatten. That changes the waveform and can add unwanted frequency components.</p>
+            <details><summary>How the app uses it</summary><p>The detector looks for runs of at least three samples at the decoded file’s absolute peak, within a tolerance of 0.000001, when that peak exceeds 0.05 of full scale. It raises a high flag if flat runs cover more than 0.01% of all channel samples or any run reaches eight samples. This is a heuristic: lossy encoding can change flat tops, so MP3/AAC clipping cannot be checked exactly with this method.</p></details>
+          </article>
+          <article class="term" id="headroom" data-alias="dbfs decibel volume loudness rms full scale peak">
+            <div class="term-tag">The recording</div><h3><a href="#headroom">Headroom, dBFS &amp; RMS</a></h3>
+            <p>Headroom is the margin below a digital limit. dBFS expresses a signal level relative to full scale. RMS describes its average magnitude rather than its single highest sample.</p>
+            <details><summary>How the app uses it</summary><code class="formula">sample peak dBFS = 20 × log₁₀(max |sample|)<br>RMS dBFS = 10 × log₁₀(mean(sample²))</code><p>A sample peak above −0.1 dBFS gets a low headroom flag. Track frames below −50 dBFS RMS are omitted from harmony scoring. These are digital levels; the app does not measure sound pressure at your ears or the room’s volume.</p></details>
+          </article>
+          <article class="term" id="dc-offset" data-alias="dc bias baseline zero mean">
+            <div class="term-tag">The recording</div><h3><a href="#dc-offset">DC offset</a></h3>
+            <p>A waveform’s baseline sits above or below zero instead of being centered. It uses some of the available signal range.</p>
+            <details><summary>How the app uses it</summary><p>The app calculates each channel’s mean sample value. If the largest absolute mean exceeds 0.005, or 0.5% of full scale, it reports a minor DC-offset issue.</p></details>
+          </article>
+          <article class="term" id="stereo-correlation" data-alias="phase cancellation left right channels mono">
+            <div class="term-tag">The recording</div><h3><a href="#stereo-correlation">Stereo correlation</a></h3>
+            <p>How similarly the left and right channels move. Strongly opposite channels can cancel when combined into mono, changing what the analyzer sees.</p>
+            <details><summary>How the app uses it</summary><p>The app compares the first two channels using normalized sample products, sampling every fourth sample. A value near +1 means similar movement; near −1 means opposing movement. A result below −0.3 raises a high phase flag. Spectral analysis uses the mean of all channels; wide stereo can therefore produce different results from each channel on its own.</p></details>
+          </article>
+          <article class="term" id="pattern" data-alias="cymatics sand chladni water faraday harmonograph rose turing phyllotaxis visualization spectrum bloom terrain interference fourier orbits">
+            <div class="term-tag">The picture</div><h3><a href="#pattern">Pattern &amp; cymatics</a></h3>
+            <p>Cymatics explores visible patterns associated with vibration. Here, the picture is generated by a simulation or mathematical drawing driven by selected or estimated sound relationships.</p>
+            <details><summary>How the app uses it</summary><p>Resonance Garden draws a designed circular wave field. Sand models particles settling toward low-energy regions of a driven square plate. Water uses a wave model. Harmonograph, phyllotaxis, rose, and Turing modes use different drawing or growth rules. Spectrum Bloom and Spectral Terrain plot frequency power; Wave Interference and Fourier Orbits build illustrative waves from partial magnitudes. <a href="#visualization-views">Compare the views and their assumptions.</a> Shape depends on these rules and model assumptions, as well as sound. It is not an image measured from your speaker, body, or a physical water experiment.</p></details>
+          </article>
+          <article class="term" id="symmetry" data-alias="pattern symmetry correlation corr cn dn d4 c1 rotation reflection mirror">
+            <div class="term-tag">The picture</div><h3><a href="#symmetry">Pattern symmetry · Cn / Dn</a></h3>
+            <p>A description of how a picture matches itself when rotated or reflected. C4 suggests fourfold rotational symmetry; D4 adds reflection symmetry. C1 means no higher rotation was accepted.</p>
+            <details><summary>How the app uses it</summary><p>The app samples a 64 × 64 pattern field, tests rotation orders 2, 3, 4, 5, 6, 8, and 12, and checks mirror matches. A correlation of at least 0.78 is required. “Corr” measures resemblance between compared pattern samples; it is not a confidence probability or a measure of musical harmony. Untested orders can get a lower-order label. The square plate model can favor fourfold geometry; symmetry is not evidence of a hidden message.</p></details>
+          </article>
+          <article class="term" id="pitch-clock" data-alias="circle fifths chroma pitch class c sharp notes overlays sacred geometry">
+            <div class="term-tag">The picture</div><h3><a href="#pitch-clock">Pitch classes &amp; pitch clock</a></h3>
+            <p>A pitch class groups notes with the same name across octaves, such as every C. The pitch clock places the 12 classes around the circle of fifths.</p>
+            <details><summary>How the app uses it</summary><p>Detected peak energy is grouped by the nearest equal-tempered pitch class. The readout keeps up to four classes, each at least 15% as strong as the strongest. File playback smooths these weights over time. The pitch clock highlights them; Metatron overlay uses pitch-class weights to light selected connections. Other overlays use chosen geometric constructions or detected pattern symmetry. Resemblance to a symbolic diagram is not an independent discovery in the audio.</p></details>
+          </article>
+          <article class="term" id="golden-ratio" data-alias="phi fibonacci golden angle spiral nature phyllotaxis universe">
+            <div class="term-tag">The picture</div><h3><a href="#golden-ratio">Golden ratio &amp; phyllotaxis</a></h3>
+            <p>The golden ratio is φ = (1 + √5) / 2, about 1.618. Phyllotaxis refers to arrangements of leaves or seeds; a golden-angle spiral is one mathematical model of such arrangements.</p>
+            <details><summary>How the app uses it</summary><p>The φ interval sets the second tone to φ times the first; φ is irrational, so any fraction label, such as 8:5, is an approximation. Phyllotaxis mode places points using a turn angle derived from the fractional part of the frequency ratio. With φ, the app turns about 222.49° per point, equivalent to a reverse turn of the familiar 137.51° golden angle. Repeating a useful mathematical rule produces a pattern; it does not establish a special healing frequency or a universal law for every living structure.</p></details>
+          </article>
+          <article class="term" id="resonance" data-alias="resonance garden standing wave nodes natural frequency petals circular bessel">
+            <div class="term-tag">The picture</div><h3><a href="#resonance">Resonance &amp; Resonance Garden</a></h3>
+            <p>Physical resonance is a strong response when a system is driven near a natural mode. Resonance Garden is the app’s designed circular wave visualization.</p>
+            <details><summary>How the app uses it</summary><p>The garden uses up to six strong, spatially resolvable peaks in a 4 m circular model, with an assumed wave speed of 343 m/s. Frequencies set wavelengths; small ratios help choose angular petal structure; amplitudes set wave weights. Bessel functions describe the radial shapes. Phase and a harmony-dependent coherence blend are artistic mappings, and wave time is slowed 512 times for display. These choices explain the geometry; the picture does not measure an actual resonator or cosmic energy.</p></details>
+          </article>
+        </div>
+      </section>
+
+      <section id="calculations" aria-labelledby="calculationTitle">
+        <div class="section-head"><span>04</span><h2 id="calculationTitle">Calculations &amp; models</h2></div>
+        <details class="callout" id="visualization-views" open>
+          <summary><strong>Choose a visualization</strong></summary>
+          <p>Each view asks a different question. Frequency plots preserve measured magnitudes; wave and growth models introduce declared design choices. File views follow the current playback analysis. Interval previews use the selected ideal tones.</p>
+          <div class="table-wrap"><table>
+            <thead><tr><th>View</th><th>What to look for</th><th>What determines it</th></tr></thead>
+            <tbody>
+              <tr><td>Spectrum Bloom</td><td>Bass, midrange, and treble balance.</td><td>72 logarithmic bands from 20 Hz to 20 kHz run clockwise from the top. Radius shows compressed relative power; brightness follows RMS level. Wider bands span more Hz. Tone previews draw ideal lines with a small artificial bandwidth for legibility.</td></tr>
+              <tr><td>Spectral Terrain</td><td>Notes, harmonics, or broad noise changing over time.</td><td>The same frequency bands become ridges across up to eight seconds of observed history. Collection starts when this view is selected; pause holds it, and seek or source changes clear it. Missing samples are not invented.</td></tr>
+              <tr><td>Wave Interference</td><td>Reinforcement, cancellation, and moving nodal regions.</td><td>Up to six resolvable partials become plane waves in a 4 m virtual domain at an assumed 343 m/s. Directions and phases are assigned; wave time is slowed 512×. Bronze and cyan distinguish opposite signs of the wave field.</td></tr>
+              <tr><td>Fourier Orbits</td><td>How rotating components add into a complex curve.</td><td>Strong partials set vector sizes and rotation rates. The trail is a four-second sweep of the current model with assigned phases and 512× slower time. It is a mathematical continuation, not recorded history or a reconstruction of the file waveform.</td></tr>
+              <tr><td>Resonance Garden</td><td>Petals and circular interference contours.</td><td>Bessel wave shapes, amplitudes, simple ratios, assigned phases, and a harmony-dependent coherence blend.</td></tr>
+              <tr><td>Chladni sand</td><td>Grains gathering near quieter plate regions.</td><td>Driven square-plate modes, damping, and simulated grain motion.</td></tr>
+              <tr><td>Water</td><td>Standing ripples and their spacing.</td><td>A stylized Faraday-wave dish responding at half the drive frequency.</td></tr>
+              <tr><td>Harmonograph</td><td>Closure and drift between two pitches.</td><td>A nearby simple ratio shapes a two-axis curve; detuning controls phase drift.</td></tr>
+              <tr><td>Sunflower</td><td>Spokes and spiral families.</td><td>Points turn by the fractional part of the pitch ratio, with radius proportional to √n.</td></tr>
+              <tr><td>Rose mandala</td><td>Petal counts and repeating symmetry.</td><td>The polar curve r = cos(pθ/q), using a fraction of the pitch ratio.</td></tr>
+              <tr><td>Turing growth</td><td>Spots, stripes, and branching growth.</td><td>Gray–Scott reaction–diffusion seeded from the plate field; harmony steers feed and kill parameters.</td></tr>
+            </tbody>
+          </table></div>
+          <p>Spectrum Bloom and Spectral Terrain show relative spectral power, not sound pressure at your ears. Live spectra are smoothed and sampled about 15 times per second. These two plots, Wave Interference, and Fourier Orbits omit spatial symmetry and geometry overlays because those readouts would not describe the plotted quantities. Pausing holds these four views; reduced-motion rendering also respects the audio clock.</p>
+        </details>
+        <p class="intro">Two routes reach the same core scoring model. Selected tones provide known frequencies. An uploaded recording first needs estimates of its frequency components.</p>
+        <ol class="pipeline">
+          <li><h3>Get the sound components</h3><p>For Interval Lab, calculate the two notes and their selected partials directly. For a file, decode it into samples, check channel integrity, and average channels into mono for spectral analysis. Analysis happens in your browser.</p></li>
+          <li><h3>Take short frequency snapshots</h3><p>The file scan applies a Blackman window to 8,192 samples and runs an FFT. The window reduces artifacts at the edges of a frame. The scan chooses a hop of 512–4,096 samples depending on file length, then finds up to 24 strong spectral peaks.</p></li>
+          <li><h3>Measure three ingredients</h3><p>Calculate roughness from peak pairs, harmonic energy from up to two harmonic families, and ratio complexity from the strongest peaks. The ratio shown beside “Interval” summarizes a pitch pair; the score considers more of the spectrum.</p></li>
+          <li><h3>Combine them into a score</h3><p>Normalize roughness against the reference minor second and complexity against <code>log₂(240)</code> (about 7.907), capping both normalized values at 1. Harmonic energy already lies from 0 to 1.</p><code class="formula">r = min(1, roughness / reference roughness)<br>t = min(1, weighted Tenney height / log₂(240))<br>score = 100 × [0.50 × (1 − r) + 0.30 × harmonic energy + 0.20 × (1 − t)]</code><p>For example, if r = 0.20, harmonic energy = 0.90, and t = 0.40, the score is <strong>79</strong>: 40 + 27 + 12. These are illustrative ingredient values, not a claim about a specific recording.</p></li>
+          <li><h3>Summarize time and draw the picture</h3><p>The scan energy-weights scored frames into one-second timeline values. The track verdict weights those values by each second’s RMS power; silent seconds are excluded. Changes in pitch-class content and level suggest up to 12 sections; with no strong changes, the app uses roughly 30-second sections. Section thumbnails use their average spectrum. Live playback analyzes the current stream instead and smooths the harmony score with a 0.6-second time constant.</p></li>
+        </ol>
+        <div class="table-wrap">
+          <table>
+            <caption class="intro" style="padding:12px 15px;text-align:left;margin:0">Read the labels as separate questions.</caption>
+            <thead><tr><th scope="col">Result</th><th scope="col">What it tells you</th><th scope="col">What to keep in mind</th></tr></thead>
+            <tbody>
+              <tr><td>Harmonious · 70–100</td><td>More consonant under this spectral model.</td><td>Not a rating of artistic merit or an expected health effect.</td></tr>
+              <tr><td>Balanced tension · 40–under 70</td><td>A middle ground between the model’s ingredients.</td><td>Small changes in timbre or register can move the score.</td></tr>
+              <tr><td>Tense / dissonant · under 40</td><td>More roughness, complexity, or less modeled harmonic energy.</td><td>Dense mixes, percussion, and intentional tension can land here.</td></tr>
+              <tr><td>Distorted</td><td>A high-severity signal-integrity flag.</td><td>Separate from harmonic tension; many forms of distortion are not covered by these checks.</td></tr>
+              <tr><td>Silent / a gap</td><td>No eligible sounding frames for a track score.</td><td>Below −50 dBFS RMS is omitted. Silence is not scored as perfect harmony.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note">Displayed scores are rounded. Track labels use the underlying mean before rounding, so a value close to a threshold can display 70 while still being labeled “Balanced tension”.</p>
+        <div class="callout"><p><strong>Live and timeline scores can differ.</strong> The live analyzer follows a smoothed, moving spectrum; the report combines fixed frames and one-second averages. Both depend on finite frequency resolution and peak selection. During live silence, the app can hold the last analyzed state, so a visible number may describe the previous sound.</p></div>
+        <details style="margin-top:18px"><summary>How the separate energy estimate is calculated</summary>
+          <p style="margin-top:12px">“Energy &amp; feeling” uses these three normalized cues. Clamp means keep a value between 0 and 1.</p>
+          <code class="formula">L = clamp((RMS dBFS + 60) / 48)<br>B = clamp(log₂(centroid / 150) / log₂(6000 / 150))<br>F = normalized positive spectral flux<br>energy = round(100 × [0.70L + 0.20B + 0.10F])</code>
+          <p>For example, L = 0.5, B = 0.5, and F = 0.2 give 47. These anchors and weights are design choices, rather than a trained model of emotion. A waveform at or below −70 dBFS is treated as silence for this cue card, with emotional associations withheld. That threshold is separate from the report’s −50 dBFS harmony cutoff. Muted tone previews estimate level from the known partials and output gain; live cues measure waveform and spectrum.</p>
+        </details>
+        <div class="callout" id="whole-track-insight" style="margin-top:18px">
+          <h3>Whole-track analysis</h3>
+          <p><strong>Overall sound insight</strong> opens below the timeline when file playback finishes. You can also open it once analysis is ready. It describes the complete recording, including skipped passages. Pausing holds the current live reading without announcing that the track has finished.</p>
+          <p>Once analysis is ready, select <strong>Expand</strong> next to <strong>Playback timeline</strong> to open the timeline, full analysis, and playback controls in a larger view. Select <strong>Close view</strong> or press <strong>Escape</strong> to return to the workspace.</p>
+          <p>The <strong>overall harmony score</strong> uses the existing report's RMS-power-weighted mean of scored one-second harmony values. <strong>Acoustic energy</strong> averages the calibrated level, brightness, and spectral-change ingredients by frame duration, including zero-energy silence. Recording integrity remains a separate result.</p>
+          <code class="formula">mean L = Σ(frame duration × L) / analyzed duration<br>mean B = Σ(frame duration × B) / analyzed duration<br>mean F = Σ(frame duration × F) / analyzed duration<br>whole-track energy = round(100 × [0.70 mean L + 0.20 mean B + 0.10 mean F])</code>
+          <p>The evidence shows exact whole-file mono RMS and time-averaged spectral cues from sounding frames. Low, moderate, high, and silent time shares show how energy varies across the file. Positive flux depends on frame spacing: the offline scan and live display need not agree exactly. Channels that cancel in mono are flagged because this analysis can differ from stereo listening.</p>
+          <p>Feeling words and possible arousal describe associations from energy and roughness. They are not a nervous-system score. Silence receives no harmony or feeling estimate; quiet audio can have an energy estimate while falling below the separate harmony threshold. <a href="#nervous-system">Read what these associations mean for a listener.</a></p>
+        </div>
+        <p class="source-note" style="margin-top:18px">Whole-track scanning covers files up to 10 minutes. Longer files can still use live playback, patterns, and integrity checks.</p>
+        <details style="margin-top:18px"><summary>What each visualization actually represents</summary>
+          <div class="table-wrap"><table>
+            <thead><tr><th scope="col">Mode</th><th scope="col">Rule behind the image</th></tr></thead>
+            <tbody>
+              <tr><td>Resonance Garden</td><td>A designed circular field of Bessel-based wave shapes. Up to six strong peaks set wavelengths and amplitudes; ratio-to-petal, phase, and coherence rules shape the image. The assumed diameter is 4 m and animation time is slowed 512 times.</td></tr>
+              <tr><td>Sand / Chladni</td><td>An approximate driven square-plate modal field; particles move toward lower vibration energy. Plate dimensions, material, damping, and drive location are model assumptions.</td></tr>
+              <tr><td>Water</td><td>A modeled surface-wave field with renderer-chosen wave directions and dispersion; it is not a measured liquid experiment.</td></tr>
+              <tr><td>Harmonograph</td><td>Damped sine oscillations trace a curve using a frequency relationship and phase.</td></tr>
+              <tr><td>Phyllotaxis</td><td>Points turn by an angle derived from the frequency ratio and spread with the square root of point index.</td></tr>
+              <tr><td>Rose</td><td>A polar curve whose repetition is driven by the interval ratio.</td></tr>
+              <tr><td>Turing</td><td>A reaction–diffusion growth model with a sound-driven spatial influence. Its spots and stripes come from the model’s dynamics.</td></tr>
+            </tbody>
+          </table></div>
+        </details>
+      </section>
+
+      <section id="meaning" aria-labelledby="meaningTitle">
+        <div class="section-head"><span>05</span><h2 id="meaningTitle">Music, mathematics &amp; meaning</h2></div>
+        <p class="intro">Sound can be studied as a physical event, a mathematical relationship, and a personal experience. These explanations describe different aspects of listening.</p>
+        <div class="reading">
+          <article>
+            <div class="eyebrow">People · research</div><h3>What music can do for a listener</h3>
+            <p>Listening and making music engage systems involved in emotion, memory, movement, and social connection. Music-based interventions have shown benefits for some symptoms and settings, but the strength of the evidence varies. Personal associations, preference, and context matter; the same piece can affect different people differently. <a href="https://www.nccih.nih.gov/health/music-and-health-what-you-need-to-know">NIH / NCCIH: music and health.</a></p>
+            <p>The lab measures features of an audio signal. It does not measure your brain, emotional state, or response to a listening session. A harmony score cannot tell you whether a song is therapeutic, and changing the A4 reference does not establish a medical benefit.</p>
+          </article>
+          <article id="nervous-system">
+            <div class="eyebrow">Listening · possible response</div><h3>Music and the nervous system</h3>
+            <p>Music can accompany changes in heart rate, breathing, and autonomic activity, but the response varies with the listener and listening conditions. Experiments that measure these responses use physiological sensors. Tempo and pleasantness have not predicted responses consistently across studies. <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126224">Krabs and colleagues: measured autonomic responses during music.</a></p>
+            <p>This lab analyzes the recording's level, brightness, spectral change, and roughness. Its energy bands and feeling words are possible acoustic associations. Roughness has been associated with perceived tension, while familiarity and musical experience also shape responses. <a href="https://www.nature.com/articles/s41598-020-65615-8">Lahdelma and Eerola: consonance, tension, and preference.</a></p>
+            <p>The app does not measure sympathetic or parasympathetic activity. Listening volume, preference, memories, and context can change how the same track feels. A higher harmony score is not a health or relaxation rating; your own experience may differ from the suggested words.</p>
+          </article>
+          <article>
+            <div class="eyebrow">Mathematics · physical models</div><h3>Why numbers become audible relationships</h3>
+            <p>A periodic wave has a repeat rate, and a harmonic series has frequencies f, 2f, 3f, and onward. For a 3:2 pair, the third harmonic of the lower note coincides with the second of the higher. Coincidences and near-coincidences help explain why timbre changes consonance. The model combines these relationships with a roughness curve, rather than treating every simple ratio as a guarantee of beauty. <a href="https://sethares.engr.wisc.edu/consemi.html">Sethares: consonance depends on timbre.</a></p>
+            <p>A standing-wave pattern also depends on the system that vibrates: its shape, constraints, material, and driving frequency. In a plate experiment, sand can collect at relatively still nodal regions. A plate’s resonances need not form a whole-number harmonic series. <a href="https://sciencedemonstrations.fas.harvard.edu/presentations/big-chladni-plate">Harvard: the Chladni plate experiment.</a> In this app, a chosen model generates the picture; its symmetry reflects both the sound and the rules of that model.</p>
+          </article>
+          <article>
+            <div class="eyebrow">Esoteric traditions · interpretation</div><h3>Resonance as a symbol of connection</h3>
+            <p>The search for cosmic harmony has a long history. In <em>Harmonices Mundi</em> (1619), Johannes Kepler explored musical and mathematical relationships in planetary motion, alongside philosophical and mystical ideas. This gives context to the “music of the spheres”: a way of imagining cosmic order, rather than an audible soundtrack measured by this app. <a href="https://www.loc.gov/static/collections/finding-our-place-in-the-cosmos-with-carl-sagan/articles-and-essays/modeling-the-cosmos/whose-revolution-copernicus-brahe-and-kepler.html">Library of Congress: Kepler and cosmic harmony.</a></p>
+            <p>In an esoteric reading, music and geometric patterns can symbolize order, balance, transformation, or connection. You might use a repeating rhythm for contemplation, associate an interval with a feeling, or find personal meaning in a symmetric image. These are interpretations and experiences; the app’s equations do not establish them as physical effects.</p>
+            <p>Scientific resonance has a specific meaning: a system responds strongly to a driving frequency near one of its natural modes. “Resonating with a song” is also a useful everyday metaphor for emotional connection. The metaphor does not by itself mean the song tunes a person to a cosmic frequency. Sacred geometry overlays are chosen constructions; resemblance to one does not prove a hidden message in the recording.</p>
+          </article>
+          <article>
+            <div class="eyebrow">The universe · careful analogy</div><h3>Waves and astronomical sonification</h3>
+            <p>Wave mathematics appears in many physical systems, but shared equations do not make all waves audible sound. Ordinary sound needs a material medium; most of space is too empty to carry it. Gas in some galaxy clusters can carry pressure waves, while astronomical “sonifications” may translate measurements into pitches or shift real waves into our hearing range. <a href="https://science.nasa.gov/science-research/astrophysics/data-sonifications/">NASA: black-hole data sonifications.</a></p>
+            <p>Music offers a compelling way to think about proportion and relationship. A golden spiral, a plate mode, and a musical interval can each be studied mathematically. Their visual or numerical resemblance is a starting point for curiosity, rather than evidence that one frequency governs the universe or produces the same effect in every human.</p>
+          </article>
+        </div>
+        <div class="callout" style="margin-top:18px"><p><strong>Try a personal listening experiment.</strong> Listen to a short passage before looking at the score. Write a few words about its feeling and any memories or images it brings to mind. Then compare that experience with the measured cues and generated pattern. Keep your own observations alongside the app’s results.</p></div>
+      </section>
+
+      <section id="sources" aria-labelledby="sourcesTitle">
+        <div class="section-head"><span>06</span><h2 id="sourcesTitle">Sources</h2></div>
+        <p class="intro">The calculation descriptions above follow this browser app’s current implementation. These external sources give context for the scientific explanations.</p>
+        <ul class="sources">
+          <li><a href="https://sethares.engr.wisc.edu/consemi.html">William A. Sethares · Consonance and dissonance</a><small>How spectral components and timbre change consonance and roughness.</small></li>
+          <li><a href="https://sciencedemonstrations.fas.harvard.edu/presentations/big-chladni-plate">Harvard · Big Chladni Plate</a><small>Standing waves, nodal lines, and the resonances of an actual vibrating plate.</small></li>
+          <li><a href="https://www.nccih.nih.gov/health/music-and-health-what-you-need-to-know">NIH / NCCIH · Music and health</a><small>What research suggests, where uncertainty remains, and what music therapy means.</small></li>
+          <li><a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126224">Krabs and colleagues · Autonomic effects of music</a><small>Physiological measurements and limits of interpreting tempo or pleasantness as a fixed response.</small></li>
+          <li><a href="https://www.nature.com/articles/s41598-020-65615-8">Lahdelma and Eerola · Consonance, tension, and preference</a><small>Perceived roughness, familiarity, and musical experience in responses to chords.</small></li>
+          <li><a href="https://www.loc.gov/static/collections/finding-our-place-in-the-cosmos-with-carl-sagan/articles-and-essays/modeling-the-cosmos/whose-revolution-copernicus-brahe-and-kepler.html">Library of Congress · Kepler and cosmic harmony</a><small>Historical connections between astronomy, musical ratios, and mystical interpretations.</small></li>
+          <li><a href="https://science.nasa.gov/science-research/astrophysics/data-sonifications/">NASA · Data sonifications and black holes</a><small>The distinction between pressure waves in gas and data translated into sound.</small></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+  <footer><span>Xymatics Lab guide</span><a href="#start">Back to getting started ↑</a></footer>
+</div>
+<script>
+"use strict";
+(() => {
+  const search = document.getElementById("termSearch"), cards = Array.from(document.querySelectorAll(".term"));
+  const count = document.getElementById("termCount"), empty = document.getElementById("noTerms");
+  const normalize = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const terms = cards.map((card) => ({ card, text: normalize(card.textContent + " " + (card.dataset.alias || "")) }));
+  function filterTerms() {
+    const words = normalize(search.value).trim().split(/\s+/).filter(Boolean);
+    let shown = 0;
+    for (const term of terms) {
+      const match = words.every((word) => term.text.includes(word));
+      term.card.hidden = !match;
+      if (match) shown++;
+    }
+    count.textContent = shown + " of " + cards.length + " terms";
+    empty.hidden = shown !== 0;
+  }
+  search.addEventListener("input", filterTerms);
+  function revealHash() {
+    const id = location.hash.slice(1), card = cards.find((item) => item.id === id);
+    if (card && card.hidden) { search.value = ""; filterTerms(); card.scrollIntoView(); }
+  }
+  window.addEventListener("hashchange", revealHash);
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest && event.target.closest('a[href^="#"]');
+    if (!link) return;
+    const card = cards.find((item) => item.id === link.getAttribute("href").slice(1));
+    if (card && card.hidden) { search.value = ""; filterTerms(); }
+  });
+  filterTerms();
+
+  const one = document.getElementById("frequencyOne"), two = document.getElementById("frequencyTwo");
+  const error = document.getElementById("explorerError"), presets = Array.from(document.querySelectorAll(".preset"));
+  const put = (id, text) => { document.getElementById(id).textContent = text; };
+  const gcd = (a, b) => b ? gcd(b, a % b) : a;
+  const cents = (ratio) => 1200 * Math.log2(ratio);
+  // Same candidate limit, tolerance, and cost as simplestRatio in the app's Part 1.
+  function nearbyRatio(ratio) {
+    let best = null, cost = Infinity;
+    for (let q = 1; q <= 16; q++) for (let p = q; p <= 16 && p <= 2 * q; p++) {
+      const deviation = cents(ratio / (p / q));
+      if (Math.abs(deviation) > 20 || gcd(p, q) !== 1) continue;
+      const next = Math.log2(p * q) + Math.abs(deviation) / 10;
+      if (next < cost) { cost = next; best = { p, q, deviation }; }
+    }
+    return best;
+  }
+  function updateExample() {
+    const a = one.valueAsNumber, b = two.valueAsNumber;
+    const valid = Number.isFinite(a) && Number.isFinite(b) && a >= 40 && a <= 9000 && b >= 40 && b <= 9000;
+    error.hidden = valid;
+    one.setAttribute("aria-invalid", String(!Number.isFinite(a) || a < 40 || a > 9000));
+    two.setAttribute("aria-invalid", String(!Number.isFinite(b) || b < 40 || b > 9000));
+    if (!valid) {
+      put("exampleRatio", "—"); put("exampleCents", "—"); put("exampleBeat", "—");
+      put("exampleDeviation", "Enter valid frequencies"); put("exampleHarmonics", "No calculation");
+      document.getElementById("waveOne").setAttribute("d", "");
+      document.getElementById("waveTwo").setAttribute("d", "");
+      document.getElementById("waveDesc").textContent = "Enter two valid frequencies to draw the waves.";
+      put("waveLabelOne", ""); put("waveLabelTwo", ""); put("waveWindow", "Waiting for valid frequencies.");
+      document.getElementById("foldNote").hidden = true;
+      return;
+    }
+    const lower = Math.min(a, b), higher = Math.max(a, b);
+    let ratio = higher / lower;
+    while (ratio > 2 + 1e-9) ratio /= 2;
+    const foldedHigh = lower * ratio, nearby = nearbyRatio(ratio);
+    put("exampleCents", cents(ratio).toFixed(2) + "¢");
+    put("exampleRatio", nearby ? nearby.p + " : " + nearby.q : "No match");
+    put("exampleDeviation", nearby ? (nearby.deviation > 0 ? "+" : "") + nearby.deviation.toFixed(3) + "¢ from the ratio" : "No simple ratio within ±20¢");
+    put("exampleBeat", nearby ? Math.abs(nearby.q * foldedHigh - nearby.p * lower).toFixed(3) + " Hz" : "—");
+    put("exampleHarmonics", nearby ? "|" + nearby.q + " × " + Number(foldedHigh.toFixed(3)) + " − " + nearby.p + " × " + Number(lower.toFixed(3)) + "|" : "A ratio is needed for this readout");
+    const foldNote = document.getElementById("foldNote");
+    foldNote.hidden = higher / lower <= 2 + 1e-9;
+    foldNote.textContent = "For interval comparison, the higher frequency is octave-folded from " + Number(higher.toFixed(3)) + " to " + Number(foldedHigh.toFixed(3)) + " Hz. The plotted waves show the original input frequencies.";
+    const time = 4 / lower;
+    // Omit waves above the display's resolution; numeric results use the original values.
+    function wave(frequency, y) {
+      const cycles = frequency * time;
+      if (cycles > 48) return "";
+      let path = "";
+      for (let i = 0; i <= 640; i++) {
+        const x = 12 + 636 * i / 640, yy = y - 22 * Math.sin(2 * Math.PI * cycles * i / 640);
+        path += (i ? "L" : "M") + x.toFixed(2) + "," + yy.toFixed(2);
+      }
+      return path;
+    }
+    document.getElementById("waveOne").setAttribute("d", wave(a, 49));
+    document.getElementById("waveTwo").setAttribute("d", wave(b, 127));
+    put("waveLabelOne", "First · " + Number(a.toFixed(3)) + " Hz" + (a * time > 48 ? " · too many cycles to plot at this scale" : ""));
+    put("waveLabelTwo", "Second · " + Number(b.toFixed(3)) + " Hz" + (b * time > 48 ? " · too many cycles to plot at this scale" : ""));
+    put("waveWindow", "The same " + (time * 1000).toFixed(2) + " ms window for both waves. These are mathematical sine waves.");
+    put("waveDesc", "First frequency " + a + " hertz, second frequency " + b + " hertz, over " + (time * 1000).toFixed(2) + " milliseconds.");
+  }
+  for (const input of [one, two]) input.addEventListener("input", () => {
+    for (const button of presets) button.setAttribute("aria-pressed", "false");
+    updateExample();
+  });
+  for (const button of presets) button.addEventListener("click", () => {
+    const base = one.valueAsNumber;
+    if (!Number.isFinite(base) || base < 40 || base > 9000) { updateExample(); one.focus(); return; }
+    const name = button.dataset.preset;
+    const next = name === "unison" ? base : name === "fifth" ? base * 1.5 : name === "tet" ? base * Math.pow(2, 7 / 12) : name === "close" ? base + 2 : base * 2;
+    two.value = String(next);
+    for (const item of presets) item.setAttribute("aria-pressed", String(item === button));
+    updateExample();
+  });
+  updateExample();
+})();
+</script>
+</body>
+</html>

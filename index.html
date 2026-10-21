@@ -1,72 +1,239 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="See the shape of your sound. Cymatics for Mac turns your music into a Resonance Garden, with explainable harmony, signal integrity, and acoustic energy analysis. Your audio stays on your Mac.">
-  <meta name="theme-color" content="#161618">
-  <title>Cymatics — See the shape of your sound</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/fonts.css">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="header wrap">
-    <a class="brand" href="#" aria-label="Cymatics home"><img src="favicon.svg" width="36" height="36" alt=""><span>Cymatics</span></a>
-    <nav aria-label="Main navigation"><a href="#inside">Inside the app</a><a href="#questions">Questions</a><a class="nav-download" href="#download">Get the Mac app</a></nav>
-  </header>
-  <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-heading">
-      <div class="hero-copy">
-        <p class="eyebrow">A closer listen. A different view.</p>
-        <h1 id="hero-heading">See the shape<br>of your <em>sound.</em></h1>
-        <p class="hero-description">Your music becomes a living garden of waves. Explore its notes, harmony, and energy in a space made for listening.</p>
-        <div class="hero-actions"><a class="button primary" href="downloads/Cymatics-0.1.0-macos-universal.dmg" download>Download for macOS</a><a class="text-link" href="#inside">Take a closer look</a></div>
-        <p class="download-caption">For Apple silicon &amp; Intel · macOS 12 or later</p>
-      </div>
-      <figure class="hero-art">
-        <img class="garden" src="assets/resonance-garden.jpg" width="1000" height="1000" fetchpriority="high" alt="An actual Cymatics Resonance Garden: blue wave contours form a circular, layered pattern.">
-        <figcaption><span class="figure-number">01 / RESONANCE GARDEN</span><span>Sound, translated into form</span></figcaption>
-      </figure>
-    </section>
-    <div class="qualities wrap" aria-label="App highlights"><span>Original sound-driven geometry</span><span>Explainable audio analysis</span><span>Offline, on your Mac</span></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Xymatics turns your music into wave patterns inspired by cymatics, then reads its harmony, signal and energy. Free in your browser, no account. Your audio never leaves your device."
+    />
+    <meta name="theme-color" content="#161618" />
+    <link rel="canonical" href="https://xymatics.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Xymatics" />
+    <meta property="og:url" content="https://xymatics.com/" />
+    <meta property="og:title" content="Xymatics: see and analyze your music" />
+    <meta
+      property="og:description"
+      content="Free audio visualization and analysis inspired by cymatics. Runs in your browser; your audio stays on your device."
+    />
+    <meta property="og:image" content="https://xymatics.com/assets/cymatics-workspace.jpg" />
+    <meta property="og:image:width" content="1440" />
+    <meta property="og:image:height" content="960" />
+    <meta property="og:image:alt" content="The Xymatics workspace analyzing an example track, captured from the app." />
+    <title>Xymatics: free audio visualization &amp; analysis</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/fonts/marcellus-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="garden.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="header wrap">
+      <a class="brand" href="#main" aria-label="Xymatics, top of page"
+        ><img src="favicon.svg" width="36" height="36" alt="" /><span>Xymatics</span></a
+      >
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#views">Views</a></li>
+          <li><a href="discover.html">Lessons</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="guide.html#calculations">How it works</a></li>
+          <li><a href="support.html">Support</a></li>
+        </ul>
+      </nav>
+      <a class="nav-download" href="https://lab.xymatics.com/">Try it free</a>
+    </header>
 
-    <section class="inside wrap" id="inside" aria-labelledby="inside-heading">
-      <div class="section-intro"><p class="eyebrow">A window into what you hear</p><h2 id="inside-heading">Listen with your eyes open.</h2><p>Bring a track, explore an interval, or start with the built-in example. Watch the sound take form, then look a little deeper.</p></div>
-      <figure class="app-preview"><img src="assets/cymatics-workspace.jpg" alt="Cymatics running a track, with the Resonance Garden, playback timeline, detected notes, and sound insights." width="1440" height="960" loading="lazy"><figcaption>The Cymatics workspace · captured from the app</figcaption></figure>
-      <div class="features">
-        <article><span class="feature-number">01</span><h3>A garden that follows the music.</h3><p>Notes, frequencies, and amplitudes shape an original wave field. Switch between the Garden, Chladni sand, water, and other mathematical views.</p></article>
-        <article><span class="feature-number">02</span><h3>Hear it. See it. Understand it.</h3><p>Explore harmony, acoustic energy, and signal integrity as separate measurements. Seek through the timeline to find where the sound changes.</p></article>
-        <article><span class="feature-number">03</span><h3>Your music stays yours.</h3><p>Open a track directly from your Mac. Playback, visualization, and analysis run locally, with no account or audio upload to a server.</p></article>
-      </div>
-    </section>
+    <main id="main" tabindex="-1">
+      <section class="hero wrap" aria-labelledby="hero-heading">
+        <div class="hero-copy">
+          <p class="eyebrow">Free · Runs in your browser</p>
+          <h1 id="hero-heading">Visualize and<br />analyze your <em>music.</em></h1>
+          <p class="hero-description">
+            Turn any track into wave patterns inspired by cymatics, then read its harmony, signal and energy, with the equations shown.
+          </p>
+          <div class="hero-actions"><a class="button primary" href="https://lab.xymatics.com/">Open Xymatics in your browser</a></div>
+          <ul class="hero-facts" aria-label="At a glance">
+            <li>Free, no account</li>
+            <li>Nothing to install</li>
+            <li>Your audio never leaves your device</li>
+          </ul>
+        </div>
+        <figure class="hero-art">
+          <img
+            class="garden"
+            src="assets/resonance-garden.jpg"
+            width="1180"
+            height="1180"
+            fetchpriority="high"
+            alt="A real Xymatics Resonance Garden: blue wave contours form a circular, layered pattern."
+          />
+          <figcaption>
+            <span class="figure-number">Resonance Garden</span><span class="garden-source">Captured from the app</span
+            ><span class="garden-source-live">Live: the app’s model on a slow C–Am–F–G</span>
+          </figcaption>
+        </figure>
+      </section>
 
-    <section class="download-section wrap" id="download" aria-labelledby="download-heading">
-      <div class="download-heading"><img src="favicon.svg" width="64" height="64" alt=""><p class="eyebrow">Make room for a closer listen</p><h2 id="download-heading">Bring Cymatics<br>to your Mac.</h2><p>One app. Your own music.<br>A new way to pay attention.</p></div>
-      <div class="download-panel">
-        <div class="release-heading"><h3>Cymatics for macOS</h3><span class="release-badge">Early access</span></div>
-        <p class="release-detail">Version 0.1.0 · Universal app · 4.4 MB</p>
-        <p class="compatibility">Apple silicon and Intel Macs<br>macOS 12 or later</p>
-        <a class="button primary" href="downloads/Cymatics-0.1.0-macos-universal.dmg" download>Download for macOS</a>
-        <ol class="install-steps"><li>Open the downloaded disk image.</li><li>Drag Cymatics into Applications.</li><li>Open Cymatics and choose your first track.</li></ol>
-        <p class="release-note">This early access build is not Apple-notarized. After trying to open it, you may need to approve Cymatics in System Settings → Privacy & Security → Open Anyway.</p>
-        <a class="checksum" href="downloads/SHA256SUMS.txt">SHA-256 checksum</a>
-      </div>
-    </section>
+      <section class="gallery wrap" id="views" aria-labelledby="views-heading">
+        <h2 id="views-heading">Eleven ways to see a sound</h2>
+        <ul class="view-grid">
+          <li class="view">
+            <img
+              src="assets/views/water.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="A round dish of dark water crossed by bright blue-white ripple ridges in a diagonal lattice."
+            />
+            <h3>Water</h3>
+          </li>
+          <li class="view">
+            <img
+              src="assets/views/harmonograph.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="Fine golden looping lines cross in a wide X, like a pendulum drawing."
+            />
+            <h3>Harmonograph</h3>
+          </li>
+          <li class="view">
+            <img
+              src="assets/views/turing-growth.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="A maze of cream and black stripes, a reaction–diffusion pattern filling the square."
+            />
+            <h3>Turing growth</h3>
+          </li>
+          <li class="view">
+            <img
+              src="assets/views/sunflower.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="Hundreds of cream dots packed into interlocking spiral arms, like a sunflower head."
+            />
+            <h3>Sunflower</h3>
+          </li>
+          <li class="view">
+            <img
+              src="assets/views/wave-interference.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="Interlocking copper and blue regions in a diagonal pattern where overlapping waves reinforce and cancel."
+            />
+            <h3>Wave Interference</h3>
+          </li>
+          <li class="view">
+            <img
+              src="assets/views/spectral-terrain.jpg"
+              width="640"
+              height="640"
+              loading="lazy"
+              alt="A 3D landscape of the last 8 seconds, with tall pale ridges in the midrange of a 20 Hz to 20 kHz axis."
+            />
+            <h3>Spectral Terrain</h3>
+          </li>
+        </ul>
+        <p class="gallery-more"><a class="text-link" href="https://lab.xymatics.com/">See all eleven with your own music</a></p>
+      </section>
 
-    <section class="faq wrap" id="questions" aria-labelledby="faq-heading">
-      <div><p class="eyebrow">Before your first listen</p><h2 id="faq-heading">A few things<br>to know.</h2></div>
-      <div class="questions">
-        <details><summary>Does Cymatics work offline?</summary><p>Yes. The Mac app includes its visualization, analysis, and fonts. You can open your own tracks and use the example without an internet connection. Reference links open in your browser when you choose to follow them.</p></details>
-        <details><summary>What audio files can I open?</summary><p>WAV, MP3, FLAC, OGG, M4A, and AIFF appear in the file picker. Decoding depends on the audio formats supported by your version of macOS; WAV and MP3 are good starting points. Tracks can be up to 10 minutes and 100 MB.</p></details>
-        <details><summary>Does it tell me whether music is “good”?</summary><p>Cymatics describes measurable qualities of sound. Harmony and acoustic energy are estimates, and tension can be an intentional part of music. These measurements cannot predict how you will feel or judge a song’s artistic value.</p></details>
-        <details><summary>Is the Garden a physical simulation?</summary><p>The Resonance Garden is a music-conditioned mathematical model. Its waves follow an explicit mapping of notes, frequencies, and amplitudes. It creates an original visual interpretation of sound; it does not simulate matter at atomic resolution.</p></details>
-        <details><summary>What does early access mean?</summary><p>This first desktop release packages the current Cymatics Lab. Features and analysis are still evolving. This early access build is not Apple-notarized. After trying to open it, you may need to approve Cymatics in System Settings → Privacy & Security → Open Anyway.</p></details>
-      </div>
-    </section>
-  </main>
-  <footer class="footer wrap"><a class="brand" href="#" aria-label="Back to Cymatics home"><img src="favicon.svg" width="28" height="28" alt=""><span>Cymatics</span></a><span>Sound has a shape. Stay curious.</span><a href="#download">Download for Mac</a></footer>
-</body>
+      <section class="pillars wrap" aria-label="What Xymatics does">
+        <article>
+          <h3>See it</h3>
+          <p>Notes, frequencies and amplitudes shape every view.</p>
+        </article>
+        <article>
+          <h3>Read it</h3>
+          <p>
+            Harmony, signal and energy on a timeline, with
+            <a class="inline-link" href="guide.html#calculations">every equation shown</a>.
+          </p>
+        </article>
+        <article>
+          <h3>Keep it private</h3>
+          <p>Your audio is processed on your device and <a class="inline-link" href="privacy.html">never uploaded</a>.</p>
+        </article>
+      </section>
+
+      <section class="premium-band" id="premium" aria-labelledby="premium-heading">
+        <div class="wrap">
+          <div>
+            <p class="eyebrow">Premium · Discover <span class="badge">Coming soon</span></p>
+            <h2 id="premium-heading">Ancient questions. Measured answers.</h2>
+            <p class="premium-copy">
+              Interactive lessons on the science behind sound’s mysteries: Pythagoras’ whole-number ratios and the comma that breaks them,
+              the lines in Chladni’s sand, why two close notes beat, and what the evidence says about 432 Hz. Every lesson shows its
+              equations, cites its sources and ends with what the model leaves out.
+            </p>
+            <p class="premium-copy">
+              Premium also adds full-length video export and live listening, in the native app for Mac, iPhone and iPad.
+              <a class="inline-link" href="discover.html">See the lessons</a>
+            </p>
+            <p class="premium-price">
+              $4.99 a month, $39 a year or $89 once, as an in-app purchase. <a class="inline-link" href="pricing.html">See pricing</a>
+            </p>
+          </div>
+          <figure class="plate comma-plate">
+            <svg viewBox="0 0 260 260" role="img" aria-labelledby="comma-title comma-desc">
+              <title id="comma-title">Illustration: twelve pure fifths miss the octave</title>
+              <desc id="comma-desc">
+                Twelve steps of a pure 3 to 2 fifth from C, folded into one octave and drawn around a circle of 1200 cents. The star almost
+                closes, but the twelfth step, B sharp, lands 23.46 cents past C.
+              </desc>
+              <circle class="axis" cx="130" cy="130" r="96" fill="none" />
+              <path class="signal" d="M130 34L81.2 212.6L214.1 83.7L34 127.1L211.1 181.4L86.3 44.5L124.1 225.8L183.8 50.5L43.2 171L225.6 138.8L52.2 73.8L168.4 218" />
+              <line class="comma" x1="168.4" y1="218" x2="141.8" y2="34.7" />
+              <path class="comma-gap" d="M130 34A96 96 0 0 1 141.8 34.7" />
+              <text x="130" y="23.5" text-anchor="middle">C</text>
+              <text x="74" y="228.2" text-anchor="middle">G</text>
+              <text x="226.4" y="80.5" text-anchor="middle">D</text>
+              <text x="20.1" y="130.1" text-anchor="middle">A</text>
+              <text x="222.9" y="192.4" text-anchor="middle">E</text>
+              <text x="79.9" y="35.5" text-anchor="middle">B</text>
+              <text x="123.2" y="243.3" text-anchor="middle">F♯</text>
+              <text x="191.7" y="42.4" text-anchor="middle">C♯</text>
+              <text x="30.6" y="180.5" text-anchor="middle">G♯</text>
+              <text x="239.5" y="143.6" text-anchor="middle">D♯</text>
+              <text x="40.9" y="69.1" text-anchor="middle">A♯</text>
+              <text x="173.9" y="234.3" text-anchor="middle">E♯</text>
+              <text x="139.9" y="53.1" text-anchor="middle" class="comma-label">B♯</text>
+            </svg>
+            <figcaption>
+              <span class="plate-label">Illustration · The Pythagorean comma</span>
+              <code>(3/2)¹² ÷ 2⁷ = 1.0136, or 23.46 cents</code>
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="closing wrap" id="download" aria-labelledby="download-heading">
+        <h2 id="download-heading">See your music today.</h2>
+        <a class="button primary" href="https://lab.xymatics.com/">Open Xymatics in your browser</a>
+        <p>Free, no account. A native app for Mac, iPhone and iPad is in development.</p>
+      </section>
+    </main>
+
+    <footer class="footer wrap">
+      <a class="brand" href="#main" aria-label="Xymatics, back to top"
+        ><img src="favicon.svg" width="28" height="28" alt="" /><span>Xymatics</span></a
+      >
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="https://lab.xymatics.com/">Open the app</a></li>
+          <li><a href="discover.html">Lessons</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="guide.html#calculations">How it works</a></li>
+          <li><a href="support.html">Support</a></li>
+          <li><a href="privacy.html">Privacy</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </body>
 </html>
